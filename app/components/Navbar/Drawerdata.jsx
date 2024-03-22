@@ -2,13 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Contactus from './Contactus';
 
-interface NavigationItem {
-  name: string;
-  href: string;
-  current: boolean;
-}
-
-const navigation: NavigationItem[] = [
+const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Courses', href: '#courses-section', current: false },
   { name: 'Mentors', href: '#mentors-section', current: false },
@@ -16,7 +10,7 @@ const navigation: NavigationItem[] = [
   { name: 'Join', href: '#join-section', current: false },
 ]
 
-function classNames(...classes: string[]) {
+function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 

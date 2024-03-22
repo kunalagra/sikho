@@ -1,15 +1,5 @@
 // MENTORS DATA
-
-interface Product {
-    id: number;
-    name: string;
-    href: string;
-    imageSrc: string;
-    imageAlt: string;
-    color: string;
-}
-
-const products: Product[] = [
+const products = [
     {
         id: 1,
         name: 'Senior UX Designer',

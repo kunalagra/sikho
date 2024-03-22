@@ -2,11 +2,7 @@ import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 
-type Coursetype = {
-  name: string;
-  };
-  
-  const course: Coursetype[] = [
+const course = [
   { name: 'UX and UI Design' },
   { name: 'Front End Development' },
   { name: 'Back End Development' },

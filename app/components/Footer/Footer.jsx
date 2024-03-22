@@ -1,13 +1,6 @@
 import Link from "next/link";
 
-// MIDDLE LINKS DATA
-interface ProductType {
-    id: number;
-    section: string;
-    link: string[];
-}
-
-const products: ProductType[] = [
+const products = [
     {
         id: 1,
         section: "Company",
@@ -45,7 +38,7 @@ const footer = () => {
                         <div key={product.id} className="group relative col-span-2">
                             <p className="text-white text-xl font-semibold mb-9">{product.section}</p>
                             <ul>
-                                {product.link.map((link: string, index: number) => (
+                                {product.link.map((link, index) => (
                                     <li key={index} className='mb-5'>
                                         <Link href="/" className="text-offwhite text-sm font-normal mb-6 space-links">{link}</Link>
                                     </li>

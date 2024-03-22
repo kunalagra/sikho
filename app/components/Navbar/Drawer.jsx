@@ -1,13 +1,8 @@
 import React, { ReactNode } from "react";
 import { XMarkIcon } from '@heroicons/react/24/outline'
 
-interface DrawerProps {
-    children: ReactNode;
-    isOpen: boolean;
-    setIsOpen: (isOpen: boolean) => void;
-}
 
-const Drawer = ({ children, isOpen, setIsOpen }: DrawerProps) => {
+const Drawer = ({ children, isOpen, setIsOpen }) => {
 
     return (
         <main
