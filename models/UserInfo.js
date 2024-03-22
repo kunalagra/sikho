@@ -10,15 +10,12 @@ const UserInfoSchema = new Schema({
   phone: {type: String},
   admin: {type: Boolean, default: false},
   coursesEnrolled: [{ type: Schema.Types.ObjectId, ref: 'Course',default: [] }],
-  solved: [{ type: Schema.Types.ObjectId, ref: 'SolvedProblem', default: [] }],
-  contestPart: [{ type: Schema.Types.ObjectId, ref: 'Contest', default: [] , problemSolved: [ { type: Schema.Types.ObjectId, ref: 'SolvedProblem', default: [] }]}],
   PeerVideo: [{ type: Schema.Types.ObjectId, ref: 'PeerVideo', default: [] }],
   reviews: [{ type: Schema.Types.ObjectId, ref: 'PeerVideoReview', default: [] }],
   rating: {type: Number, default: 50},
   assigned: [{ type: Schema.Types.ObjectId, ref: 'Queue', default: [],  }],
   assignedTime: [{ type: Date,  default: [],  }],
   amount: {type: Number, default: 0}
-
 }, {timestamps: true});
 
 export const UserInfo = models?.UserInfo || model('UserInfo', UserInfoSchema);
