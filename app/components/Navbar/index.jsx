@@ -2,14 +2,14 @@
 import Navbar from './Navbar';
 import React, { useEffect } from 'react';
 
-const Navbarin: React.FC = () => {
+const Navbarin = () => {
     useEffect(() => {
         // The debounce function receives our function as a parameter
-        const debounce = (fn: Function) => {
+        const debounce = (fn) => {
             // This holds the requestAnimationFrame reference, so we can cancel it if we wish
-            let frame: number;
+            let frame;
             // The debounce function returns a new function that can receive a variable number of arguments
-            return (...params: any[]) => {
+            return (...params) => {
                 // If the frame variable has been defined, clear it now, and queue for next frame
                 if (frame) {
                     cancelAnimationFrame(frame);

@@ -4,15 +4,7 @@ import React, { Component } from "react";
 
 // CAROUSEL DATA
 
-interface DataType {
-    profession: string;
-    name: string;
-    imgSrc: string;
-    starimg: string;
-    detail: string;
-}
-
-const postData: DataType[] = [
+const postData = [
     {
         profession: 'UX/UI Designer',
         name: 'Andrew Williams',

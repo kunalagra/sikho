@@ -4,15 +4,7 @@ import { useState } from "react";
 import { GlobeAltIcon, DevicePhoneMobileIcon, CircleStackIcon, CloudIcon } from '@heroicons/react/24/outline';
 
 
-interface Name {
-    course: string;
-    imageSrc: string;
-    profession: string
-    price: string
-    category: 'mobiledevelopment' | 'webdevelopment' | 'datascience' | 'cloudcomputing';
-}
-
-const names: Name[] = [
+const names = [
     {
         course: 'HTML, CSS, JS',
         imageSrc: '/assets/courses/coursesOne.svg',
@@ -129,14 +121,14 @@ const names: Name[] = [
 
 const NamesList = () => {
 
-    const [selectedButton, setSelectedButton] = useState<'mobiledevelopment' | 'webdevelopment' | 'datascience' | 'cloudcomputing' | 'all' | null>('webdevelopment');
+    const [selectedButton, setSelectedButton] = useState('webdevelopment');
 
     const mobileDevelopment = names.filter((name) => name.category === 'mobiledevelopment');
     const webDevelopment = names.filter((name) => name.category === 'webdevelopment');
     const dataScience = names.filter((name) => name.category === 'datascience');
     const cloudComputing = names.filter((name) => name.category === 'cloudcomputing');
 
-    let selectedNames: Name[] = [];
+    let selectedNames = [];
 
     if (selectedButton === 'mobiledevelopment') {
         selectedNames = mobileDevelopment;

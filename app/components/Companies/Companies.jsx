@@ -2,12 +2,7 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
 
-// IMAGES DATA FOR CAROUSEL
-interface Data {
-    imgSrc: string;
-}
-
-const data: Data[] = [
+const data = [
     {
         imgSrc: "/assets/slickCompany/airbnb.svg"
     },

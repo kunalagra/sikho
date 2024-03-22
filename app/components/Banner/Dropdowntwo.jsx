@@ -2,12 +2,7 @@ import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 
-type Hourtype = {
-  name: string;
-  };
-
-
-const Hour: Hourtype[] = [
+const Hour = [
   { name: '20hrs in a Month' },
   { name: '30hrs in a Month' },
   { name: '40hrs in a Month' },

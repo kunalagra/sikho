@@ -11,7 +11,7 @@ const Contactusform = () => {
         input3: ''
     });
 
-    const handleChange = (e: { target: { name: string; value: string; }; }) => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setInputValues(prevState => ({ ...prevState, [name]: value }));
     }
@@ -22,7 +22,7 @@ const Contactusform = () => {
     }
 
     // FORM SUBMIT
-    const handleSubmit = (event: { preventDefault: () => void; }) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         // handle form submission
     };
