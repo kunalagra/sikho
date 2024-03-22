@@ -1,5 +1,7 @@
+""
 import {User} from "@/models/User";
 import {Student} from "@/models/Student";
+import {Instructor} from "@/models/Instructor";
 
 import bcrypt from "bcrypt";
 import dbConnect from '@/utils/dbConnect';
@@ -15,10 +17,16 @@ export async function POST(req) {
   const notHashedPassword = pass;
   const salt = bcrypt.genSaltSync(10);
   body.password = bcrypt.hashSync(notHashedPassword, salt);
-  const userInfo = new Student();
-  const userInfod = await userInfo.save()
-  body.userInfo = userInfod._id
-  const createdUser = await User.create(body);
+  let userInfo;
+  if (body.type === "Instructor") {
+     userInfo = new Instructor();
 
-  return Response.json(createdUser);
+  } else {
+     userInfo = new Student();
+  }
+    const userInfod = await userInfo.save()
+    body.userInfo = userInfod._id
+    const createdUser = await User.create(body);
+    return Response.json(createdUser);
+
 }

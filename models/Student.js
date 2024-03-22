@@ -9,7 +9,7 @@ const StudentSchema = new Schema({
   country: {type: String},
   phone: {type: String},
   courses: [{ type: Schema.Types.ObjectId, ref: 'LessonPlan',default: [] }],
-  PeerVideo: [{ type: Schema.Types.ObjectId, ref: 'PeerVideo', default: [] }],
+  peerVideo: [{ type: Schema.Types.ObjectId, ref: 'PeerVideo', default: [] }],
   reviews: [{ type: Schema.Types.ObjectId, ref: 'PeerVideoReview', default: [] }],
   rating: {type: Number, default: 50},
   assigned: [{ type: Schema.Types.ObjectId, ref: 'Queue', default: [],  }],
