@@ -2,7 +2,7 @@ import path from "path";
 import { writeFile } from "fs/promises";
 const { v4: uuidv4 } = require('uuid');
 import {User} from "@/models/User";
-import {UserInfo} from "@/models/UserInfo.js";
+import {Student} from "@/models/Student.js";
 import dbConnect from '@/utils/dbConnect';
 import {Queue} from "@/models/Queue.js";
 import {PeerVideo} from "@/models/PeerVideo.js";
@@ -12,7 +12,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]/route.js"
 
 async function QueueCheck(PeerVideo, user, paid){
-    const oguserdata = await UserInfo.findById(user.userInfo)
+    const oguserdata = await Student.findById(user.userInfo)
 
     const newQueue = new Queue({
         user: user._id,
@@ -34,7 +34,7 @@ async function QueueCheck(PeerVideo, user, paid){
     }
     let filteredQueue
     if (paid){
-        let userinfo = await UserInfo.find({ rating: { $gt: 80 }}).limit(1)
+        let userinfo = await Student.find({ rating: { $gt: 80 }}).limit(1)
         userinfo = userinfo[0]
         userinfo.assigned.push(nq._id);
         userinfo.assignedTime.push(Date.now())
@@ -51,7 +51,7 @@ async function QueueCheck(PeerVideo, user, paid){
             for (let i = 0; i < filteredQueue.length; i++) {
                 for (let j = 0; j < filteredQueue.length; j++) {
                     if (filteredQueue[i].user._id !== filteredQueue[j].user._id) {
-                        const userinfo = await UserInfo.findById(filteredQueue[j].user.userInfo);
+                        const userinfo = await Student.findById(filteredQueue[j].user.userInfo);
                         await userinfo.assigned.push(filteredQueue[i]._id);
                         await userinfo.assignedTime.push(Date.now())
                         await userinfo.save();
@@ -87,7 +87,7 @@ export async function POST(request) {
             buffer
             );
             const user = await User.findById(userID)
-            const userdata = await UserInfo.findById(user.userInfo)
+            const userdata = await Student.findById(user.userInfo)
             const question = await Question.findOne({id: questionID})
             const newPeerVideo = new PeerVideo(
                 {

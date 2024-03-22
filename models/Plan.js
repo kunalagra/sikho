@@ -1,6 +1,6 @@
 import {model, models, Schema} from "mongoose";
 
-const PlansSchema = new Schema({
+const PlanSchema = new Schema({
     title: {
       type: String,
       required: true,
@@ -12,6 +12,7 @@ const PlansSchema = new Schema({
     description: {type: String, required: true},
     totalclasses: {type: Number, required: true},
     time: {type: Number, required: true},
+    lesson: [{type: Schema.Types.ObjectId, ref: 'LessonPlan'}],
     modules: [
       {
         id: {
@@ -42,4 +43,4 @@ const PlansSchema = new Schema({
     ],
   });
   
-export const Plans = models?.Plans || model('Plans', PlansSchema);
+export const Plan = models?.Plan || model('Plan', PlanSchema);

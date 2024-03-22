@@ -1,4 +1,4 @@
-import {UserInfo} from "@/models/UserInfo";
+import {Student} from "@/models/Student";
 import bcrypt from "bcrypt";
 import dbConnect from '@/utils/dbConnect';
 import {User} from '@/models/User';
@@ -54,7 +54,7 @@ export async function isAdmin() {
   if (!userEmail) {
     return false;
   }
-  const userInfo = await UserInfo.findOne({email:userEmail});
+  const userInfo = await Student.findOne({email:userEmail});
   if (!userInfo) {
     return false;
   }

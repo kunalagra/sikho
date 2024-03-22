@@ -1,5 +1,5 @@
 import {User} from "@/models/User.js";
-import {UserInfo} from "@/models/UserInfo.js";
+import {Student} from "@/models/Student.js";
 import {Queue} from "@/models/Queue.js";
 import {PeerVideo} from "@/models/PeerVideo.js";
 import {question} from "@/models/Question.js";
@@ -17,7 +17,7 @@ export async function GET() {
         const userID = session?.user?._id
         if (session?.user?._id){
             const user = await User.findById(userID)
-            const userdata = await UserInfo.findById(user.userInfo).populate({
+            const userdata = await Student.findById(user.userInfo).populate({
                 path : 'assigned',
                 populate : {
                   path : 'PeerVideo',

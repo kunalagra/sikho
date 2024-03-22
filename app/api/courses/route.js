@@ -1,15 +1,15 @@
-import { Plans } from "@/models/Plans";
+import { Plan } from "@/models/Plan";
 import dbConnect from '@/utils/dbConnect';
 
 export async function POST(req) {
   const body = await req.json();
   await dbConnect();
-  const createdPlans = await Plans.create(body);
-  return Response.json(createdPlans);
+  const createdPlan = await Plan.create(body);
+  return Response.json(createdPlan);
 }
 
 export async function GET() {
   await dbConnect();
-  const Planss = await Plans.find({});
-  return Response.json(Planss);
+  const Plans = await Plan.find({});
+  return Response.json(Plans);
 }

@@ -4,10 +4,8 @@ import {model, models, Schema} from "mongoose";
 const UserSchema = new Schema({
   email: {type: String, required: true, unique: true},
   password: {type: String},
-  userInfo: {
-    type: Schema.Types.ObjectId,
-    ref: 'UserInfo',
-  },
+  userInfo: { type: [Schema.Types.ObjectId], refPath: 'type'},
+  type: {type: String, enum: ["Student","Instructor"], default: "Student" }
 }, {timestamps: true});
 
 

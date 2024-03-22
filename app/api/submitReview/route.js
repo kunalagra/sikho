@@ -1,6 +1,6 @@
 import dbConnect from '@/utils/dbConnect';
 import {User} from "@/models/User";
-import {UserInfo} from "@/models/UserInfo.js";
+import {Student} from "@/models/Student.js";
 import {Queue} from "@/models/Queue.js";
 
 import {PeerVideo} from "@/models/PeerVideo.js";
@@ -27,7 +27,7 @@ export async function POST(req) {
         )
         const savedreview = await review.save()
         const user = await User.findById(userID)
-        const userdata = await UserInfo.findById(user.userInfo)
+        const userdata = await Student.findById(user.userInfo)
 
         await userdata.reviews.push(savedreview._id)
         await userdata.assigned.pull(queueID)

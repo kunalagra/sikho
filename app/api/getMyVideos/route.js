@@ -1,6 +1,6 @@
 import dbConnect from '@/utils/dbConnect';
 import {User} from "@/models/User";
-import {UserInfo} from "@/models/UserInfo.js";
+import {Student} from "@/models/Student.js";
 
 import {PeerVideo} from "@/models/PeerVideo.js";
 import {PeerVideoReview} from "@/models/PeerVideoReview.js";
@@ -15,7 +15,7 @@ export async function GET() {
     const userID = session?.user?._id;
     if (userID){
         const user = await User.findById(userID)
-        const userdata = await UserInfo.findById(user.userInfo).populate({
+        const userdata = await Student.findById(user.userInfo).populate({
             path : 'PeerVideo',
             populate : 
               ['question','reviews']

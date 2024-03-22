@@ -1,6 +1,6 @@
 import dbConnect from '@/utils/dbConnect';
 import {User} from "@/models/User";
-import {UserInfo} from "@/models/UserInfo.js";
+import {Student} from "@/models/Student.js";
 import {Queue} from "@/models/Queue.js";
 
 import {PeerVideo} from "@/models/PeerVideo.js";
@@ -19,7 +19,7 @@ export async function POST(req) {
         reviewItem.feedback = feedback;
         await reviewItem.save()
         const user = await User.findById(reviewItem.reviewer)
-        const userdata = await UserInfo.findById(user.userInfo)
+        const userdata = await Student.findById(user.userInfo)
         userdata.rating += feedback
         await userdata.save()
         return new Response('User Feedback Added',{status: 201})

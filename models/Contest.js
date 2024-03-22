@@ -34,7 +34,7 @@ const ContestSchema = Schema({
         {
             user: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'UserInfo'
+                ref: 'Student'
             },
             score: {
                 type: Number,

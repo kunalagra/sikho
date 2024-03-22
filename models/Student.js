@@ -1,6 +1,6 @@
 import {model, models, Schema} from "mongoose";
 
-const UserInfoSchema = new Schema({
+const StudentSchema = new Schema({
   name: { type: String },
   age: { type: Number },
   gender: { type: String, enum: ['Male', 'Female'] },
@@ -8,8 +8,7 @@ const UserInfoSchema = new Schema({
   city: {type: String},
   country: {type: String},
   phone: {type: String},
-  admin: {type: Boolean, default: false},
-  coursesEnrolled: [{ type: Schema.Types.ObjectId, ref: 'Course',default: [] }],
+  courses: [{ type: Schema.Types.ObjectId, ref: 'LessonPlan',default: [] }],
   PeerVideo: [{ type: Schema.Types.ObjectId, ref: 'PeerVideo', default: [] }],
   reviews: [{ type: Schema.Types.ObjectId, ref: 'PeerVideoReview', default: [] }],
   rating: {type: Number, default: 50},
@@ -18,4 +17,4 @@ const UserInfoSchema = new Schema({
   amount: {type: Number, default: 0}
 }, {timestamps: true});
 
-export const UserInfo = models?.UserInfo || model('UserInfo', UserInfoSchema);
+export const Student = models?.Student || model('Student', StudentSchema);

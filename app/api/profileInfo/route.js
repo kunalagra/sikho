@@ -1,7 +1,7 @@
 import dbConnect from "@/utils/dbConnect";
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]/route.js"
-import { UserInfo } from "@/models/UserInfo.js";
+import { Student } from "@/models/Student.js";
 import {User} from "@/models/User";
 
 export async function GET() {
@@ -11,7 +11,7 @@ export async function GET() {
       const session = await getServerSession(authOptions);
       if (session?.user?._id){
         const user = await User.findById(session?.user?._id)
-        const data = await UserInfo.findById(user.userInfo )
+        const data = await Student.findById(user.userInfo )
         return new Response(JSON.stringify(data), {status: 200})
       } 
     }catch (error) {  
@@ -29,7 +29,7 @@ export async function POST(req) {
           await dbConnect();
           const body = await req.json()
           const user = await User.findById(userID)
-          await UserInfo.findByIdAndUpdate(user.userInfo,body )
+          await Student.findByIdAndUpdate(user.userInfo,body )
           return new Response('User Data Updated',{status: 201})
       }
       else{
