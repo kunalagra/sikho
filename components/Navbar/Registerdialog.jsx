@@ -3,28 +3,42 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import axios from 'axios';
-
+import { set } from 'mongoose';
+import Link from "next/link";
 const Register = () => {
     let [isOpen, setIsOpen] = useState(false)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [usertype, setUserType] = useState('select user type')
+    const [creatingUser, setCreatingUser] = useState(false)
+    const [userCreated, setUserCreated] = useState(false)
+    const [error, setError] = useState(false)
 
     const handleRegister = async (e) => {
         e.preventDefault()
+
+        setCreatingUser(true);
+        setError(false);
+        setUserCreated(false);
+
         axios.post('/api/register', {
             email: email,
             password: password,
             type: usertype
         }).then((res) => {
-            console.log(res)
-        }).catch((err) => {
-            console.log(err)
+            if (res.status === 200) {
+                setUserCreated(true);
+            } else {
+                setError(true);
+            }
+        }
+        ).catch((err) => {
+            setError(true);
+        }).finally(() => {
+            setCreatingUser(false);
         })
     }
-
-        
 
 
     const closeModal = () => {
@@ -84,6 +98,12 @@ const Register = () => {
                                                     Register your account
                                                 </h2>
                                             </div>
+                                            {error && (
+                                                <div className="my-4 text-center">
+                                                    An error has occurred. <br />
+                                                    Please try again later.
+                                                </div>
+                                            )}
                                             <form className="mt-8 space-y-6" action="#" method="POST">
                                                 <input type="hidden" name="remember" defaultValue="true" />
                                                 <div className="-space-y-px rounded-md">
@@ -97,6 +117,7 @@ const Register = () => {
                                                             type="email"
                                                             autoComplete="email"
                                                             required
+                                                            disabled={creatingUser}
                                                             className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                                             placeholder="Email address"
                                                             value={email}
@@ -113,6 +134,7 @@ const Register = () => {
                                                             type="password"
                                                             autoComplete="current-password"
                                                             required
+                                                            disabled={creatingUser}
                                                             className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                                             placeholder="Password"
                                                             value={password}
@@ -158,6 +180,7 @@ const Register = () => {
                                                         type="submit"
                                                         className="group relative flex w-full justify-center rounded-md border border-transparent bg-purple py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                                         onClick={handleRegister}
+                                                        disabled={creatingUser}
                                                     >
                                                         <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                             <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />

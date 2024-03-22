@@ -1,9 +1,9 @@
-import {Student} from "@/models/Student";
-import bcrypt from "bcrypt";
+// import bcrypt from "bcrypt";
 import dbConnect from '@/utils/dbConnect';
 import {User} from '@/models/User';
 import NextAuth, {getServerSession} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+// const bcrypt = require("bcrypt");
 
 export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -37,6 +37,8 @@ export const authOptions = {
 
         await dbConnect()
         const user = await User.findOne({email});
+        const bcrypt = require("bcrypt");
+
         const passwordOk = user && bcrypt.compareSync(password, user.password);
         if (passwordOk) {
           return user;
@@ -48,18 +50,6 @@ export const authOptions = {
   ],
 };
 
-export async function isAdmin() {
-  const session = await getServerSession(authOptions);
-  const userEmail = session?.user?.email;
-  if (!userEmail) {
-    return false;
-  }
-  const userInfo = await Student.findOne({email:userEmail});
-  if (!userInfo) {
-    return false;
-  }
-  return userInfo.admin;
-}
 
 const handler = NextAuth(authOptions);
 

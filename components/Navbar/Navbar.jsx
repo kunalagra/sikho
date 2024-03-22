@@ -1,12 +1,15 @@
+"use client";
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import Drawer from "./Drawer";
 import Drawerdata from "./Drawerdata";
 import Signdialog from "./Signdialog";
 import Registerdialog from "./Registerdialog";
 import Contactus from "./Contactus";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route.js"
+import { getServerSession } from "next-auth/next"
 
 
 const navigation = [
@@ -23,7 +26,10 @@ function classNames(...classes) {
 
 const Navbar = () => {
 
-    const [isOpen, setIsOpen] = React.useState(false);
+
+    const userID = "1234567890";
+
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
         <Disclosure as="nav" className="bg-lightpink navbar">
@@ -70,13 +76,12 @@ const Navbar = () => {
                         </div>
 
                         {/* SIGNIN DIALOG */}
-
-                        <Signdialog />
+                        {userID && (<Signdialog /> )}
 
 
                         {/* REGISTER DIALOG */}
 
-                        <Registerdialog />
+                        {userID && (<Registerdialog />)}
 
 
                         {/* DRAWER FOR MOBILE VIEW */}

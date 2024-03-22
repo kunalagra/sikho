@@ -1,13 +1,22 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
-
+import { signIn } from "next-auth/react";
 
 const Signin = () => {
     let [isOpen, setIsOpen] = useState(false)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [loginInProgress, setLoginInProgress] = useState(false);
+
+    async function handleFormSubmit(ev) {
+        ev.preventDefault();
+        setLoginInProgress(true);
+
+        await signIn('credentials', { email, password, callbackUrl: '/' });
+        setLoginInProgress(false);
+    }
 
     const closeModal = () => {
         setIsOpen(false)
@@ -66,7 +75,7 @@ const Signin = () => {
                                                     Sign in to your account
                                                 </h2>
                                             </div>
-                                            <form className="mt-8 space-y-6" action="#" method="POST">
+                                            <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleFormSubmit}>
                                                 <input type="hidden" name="remember" defaultValue="true" />
                                                 <div className="-space-y-px rounded-md">
                                                     <div className='py-2'>
@@ -79,6 +88,7 @@ const Signin = () => {
                                                             type="email"
                                                             autoComplete="email"
                                                             required
+                                                            disabled={loginInProgress}
                                                             className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                                             placeholder="Email address"
                                                             value={email}
@@ -95,6 +105,7 @@ const Signin = () => {
                                                             type="password"
                                                             autoComplete="current-password"
                                                             required
+                                                            disabled={loginInProgress}
                                                             className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                                             placeholder="Password"
                                                             value={password}
