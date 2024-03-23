@@ -13,7 +13,6 @@ export const authOptions = {
   },
     callbacks: {
     async jwt({ token, user }) {
-      console.log(user)
       if (user?._id) token._id = user._id;
       if (user?.type) token.type = user.type;
 
@@ -21,7 +20,6 @@ export const authOptions = {
     },
     async session ({ session, token, user }) {
       const sanitizedToken = Object.keys(token).reduce((p, c) => {
-        // strip unnecessary properties
         if (
           c !== "iat" &&
           c !== "exp" &&

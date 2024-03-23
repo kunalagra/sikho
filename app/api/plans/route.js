@@ -12,6 +12,7 @@ export async function GET() {
     await dbConnect();
     const session = await getServerSession(authOptions);
     const userID = session?.user?._id;
+    console.log(session?.user?.type)
     const userdata = await User.findById(userID)
     if (userID && userdata.type=="Instructor"){
         const inst = await Instructor.findById(userdata.userInfo).populate({
