@@ -4,6 +4,9 @@ import {Student} from "@/models/Student.js";
 import {Instructor} from "@/models/Instructor.js";
 import {Plan} from '@/models/Plan.js'
 import {LessonPlan} from '@/models/LessonPlan.js'
+import path from "path";
+import { writeFile } from "fs/promises";
+const { v4: uuidv4 } = require('uuid');
 
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]/route.js"
@@ -47,20 +50,44 @@ export async function POST(req) {
     const session = await getServerSession(authOptions);
     const userID = session?.user?._id;
     const userdata = await User.findById(userID)
-    const data = await req.json()
     if (userID && userdata.type=="Instructor"){
-        
-        if (data.id){
+        const isJSON = req.headers['content-type'] && req.headers['content-type'].includes('application/json');
+        if (isJSON){
             let query = {_id: data.id}
             let options = {new: true};
             await Plan.findOneAndUpdate(query, data, options);
             return new Response('Plan Updated',{status: 201})
-
         }
         else{
-            data.instructor = userdata.userInfo
-            const plan = await Plan(
-                data
+            const formData = await req.formData()
+            const title = formData.get('title')
+            const price = formData.get('price')
+            const description = formData.get('description')
+            const domain = formData.get('domain')
+            const totalclasses = formData.get('totalclasses')
+            const time = formData.get('time')
+
+            const file = formData.get('thumbnail')
+            if (!file) {
+                return Response.json({ error: "No files received." }, { status: 400 });
+            }
+            const buffer = Buffer.from(await file.arrayBuffer());
+            const filename =  uuidv4() + path.extname(file.name);
+            await writeFile(
+                path.join(process.cwd(), "public/assets/" + filename),
+                buffer
+            );
+
+            const plan = await Plan({
+                instructor: userdata.userInfo,
+                title: title,
+                price:price,
+                description: description,
+                domain: domain,
+                totalclasses: totalclasses,
+                time: time,
+                thumbnail: "/assets/"+filename
+            }
             )
             const newplan = await plan.save()
             const inst = await Instructor.findById(userdata.userInfo)
@@ -71,6 +98,7 @@ export async function POST(req) {
 
     }
     else if (userID && userdata.type=="Student"){
+        const data = await req.json()
         // to-do balance add & subtract for instructors
         const planinfo = await Plan.findById(data.planid).populate('lessons')
         if (data.plan_size===1){
