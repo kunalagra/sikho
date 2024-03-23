@@ -1,11 +1,9 @@
+"use client";
 import React, { useState, useContext, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import CheckoutForm from "./CheckoutForm";
-import Preloader from "../components/common/Preloader";
-import commonContext from "../contexts/common/commonContext";
-import useScrollDisable from "../hooks/useScrollDisable";
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -15,16 +13,18 @@ const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_PUBLICATION_KEY}`);
 
 export default function Checkout() {
 
-  const { isLoading, toggleLoading } = useContext(commonContext);
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     // console.log(process.env.NODE_ENV)
     // console.log(`${process.env.REACT_APP_TITLE}`)
-    toggleLoading(true);
-    axios.post("/create-payment-intent", {
-      amount: localStorage.getItem("totalPrice"),
+
+    axios.post("/api/create-payment-intent", {
+      withCredentials: true,
+      accessControlAllowCredentials: true,
+      credientials: "same-origin",
+      amount: 1099,
       headers: { 
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -32,16 +32,14 @@ export default function Checkout() {
     })
       .then((res) => {
         setClientSecret(res.data.clientSecret);
-        toggleLoading(false);
+
       })
       .catch((err) => {
         console.log(err);
-        toggleLoading(false);
+
       }
     );
   }, []);
-
-  useScrollDisable(isLoading);
 
   const appearance = {
     theme: 'stripe',
@@ -49,10 +47,6 @@ export default function Checkout() {
   const options = {
     clientSecret,
     appearance,
-  };
-
-  if(isLoading) {
-    return <Preloader />;
   };
 
   return (

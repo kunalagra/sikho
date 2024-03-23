@@ -7,11 +7,17 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import React, { useState } from 'react'
 import Link from 'next/link';
 import Plans from '../Plans/Plans';
-import ScheduleMeeting from './ScheduleMeeting';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const Course = ({ course }) => {
 
-  const isUser = false;
+  const { data: session } = useSession();
+  const navigate = useRouter();
+  
+
+  const isUser = session?.user?.type
+
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [renameValue, setRenameValue] = useState('');
   const [descValue, setDescValue] = useState('');
@@ -123,11 +129,15 @@ const Course = ({ course }) => {
           <button className='py-2 px-6 rounded-lg border text-purple-1 hover:text-white border-purple-1 hover:bg-purple-1 transition-all'>
             Add to Cart
           </button>
-          {/* <Link href='#buy-course'> */}
-            <button className='py-2 px-6 rounded-lg text-white bg-purple-1 active:bg-purple-2'>
+          <Link href='/checkout'>
+            <button className='py-2 px-6 rounded-lg text-white bg-purple-1 active:bg-purple-2'
+              onClick={() => {
+                navigate.push('/checkout')
+              }}
+            >
               Buy now
             </button>
-          {/* </Link> */}
+          </Link>
         </div>
       </div>
 
@@ -152,13 +162,13 @@ const Course = ({ course }) => {
                 <div className='flex items-center gap-6'>
                   <p className='text-lg font-semibold'>Module {index+1}: {item.title}</p>
                   <div className='flex gap-2'>
-                    {!isUser && 
+                    {isUser == "Instructor" && 
                       <button onClick={() => {setModuleNoEdit(index); setRenameValue(item.title); setDescValue(item.description); setIsModuleNameEdit(true); setIsEditModalOpen(true);}}>
                         <EditIcon className='bg-blue-500 active:bg-blue-600 rounded-lg p-1 cursor-pointer text-white' 
                         />
                       </button>
                     }
-                    {!isUser && 
+                    {isUser == "Instructor" && 
                       <button onClick={() => {if (confirm(`Delete Module ${index+1}?`)) setModules([...modules.slice(0,index), ...modules.slice(index+1)])}}>
                         <DeleteIcon className='bg-red-500 active:bg-red-600 rounded-lg p-1 cursor-pointer text-white' /> 
                       </button>
@@ -173,7 +183,7 @@ const Course = ({ course }) => {
                     <div className='flex gap-5 items-center'>
                       <p className='font-bold'>Lesson {ind+1}: {lesson.title}</p>
                       <div className='flex gap-2'>
-                        {!isUser && 
+                        {isUser == "Instructor" && 
                           <button onClick={() => {
                             setModuleNoEdit(index); 
                             setLessonNoEdit(ind); 
@@ -182,7 +192,7 @@ const Course = ({ course }) => {
                             />
                           </button>
                         }
-                        {!isUser && 
+                        {isUser == "Instructor" && 
                           <button onClick={() => {
                             if (confirm(`Delete Lesson ${ind+1}?`)) 
                               setModules([...modules.slice(0,index), {...modules[index], lessons: [...modules[index].lessons.slice(0,ind), ...modules[index].lessons.slice(ind+1)]}, ...modules.slice(index+1)])

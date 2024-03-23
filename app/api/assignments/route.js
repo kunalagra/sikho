@@ -27,18 +27,18 @@ export async function GET(req) {
         if (session?.user?._id){
           if (session?.user?.type==='Student'){
             const user = await User.findById(userID)
-            let filteredLessonPlans = lessonplans.assigned.map(lessonPlan => {
+            let filteredLessonPlans = lessonplans.assignments.map(lessonPlan => {
               const filteredSubmissions = lessonPlan.submissions.filter(submission => {
                   return submission.student === user.userInfo;
               });
           
               return { ...lessonPlan, submissions: filteredSubmissions };
              });
-          
-            return new Response(JSON.stringify(filteredLessonPlans.assigned),{status: 200}) 
+
+            return new Response(JSON.stringify(filteredLessonPlans._doc),{status: 200}) 
           }
           else if (session?.user?.type==='Instructor'){
-            return new Response(JSON.stringify(lessonplans.assigned),{status: 200}) 
+            return new Response(JSON.stringify(lessonplans),{status: 200}) 
 
           }
         }
@@ -66,14 +66,11 @@ export async function POST(req) {
       }
       else{
         const lessonPlan = await LessonPlan.findById(data.lid)
-        
           const assignment = await Assignment({
               title: data.title,
               description: data.description,
-              end: data.date,
+              end: data.end,
           })
-
-
           const newassignment = await assignment.save()
           lessonPlan.assignments.push(newassignment._id)
           await lessonPlan.save();
@@ -87,7 +84,8 @@ export async function POST(req) {
         student: userdata._id,
         solution: data.solution, 
       }
-      assigments.submission.push(solution)
+      assigments.submissions.push(solution)
+      await assigments.save()
 
       return new Response('Assignment Submitted',{status: 201})
             

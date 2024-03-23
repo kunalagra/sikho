@@ -1,18 +1,18 @@
 'use client'
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const page = () => {
 
+  const navigate = useRouter();
   const [title, setTitle] = useState('');
     const [individualPrice, setIndividualPrice] = useState('');
-    const [groupPrice, setGroupPrice] = useState('');
     const [description, setDescription] = useState('');
     const [thumbnail, setThumbnail] = useState(null);
     const [thumbnailImg, setThumbnailImg] = useState(null);
-    const [startDate, setStartDate] = useState('');
     const [domain, setDomain] = useState('');
-    const [modules, setModules] = useState([]);
+    const [time, setTime] = useState('');
 
     const handleThumbnailChange = (e) => {
         setThumbnailImg(e.target.files[0]);
@@ -20,11 +20,22 @@ const page = () => {
         setThumbnailImg(URL.createObjectURL(e.target.files[0]));
     }
 
-    const handleStartDateChange = (e) => {
-        if (new Date(e.target.value) > new Date()) {
-            setStartDate(e.target.value);
+    const handleCreate = (data) => {
+      fetch(`/api/plans`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
         }
+      })
+      .then(res => {
+        if(res.status === 201) {
+          navigate.push('/')
+        }
+      })
+
     }
+
 
   return (
     <div className="bg-lightpink-1">
@@ -87,8 +98,8 @@ const page = () => {
                   required
                   className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 "
                   placeholder="Group Price (in ₹)"
-                  value={groupPrice}
-                  onChange={(e) => setGroupPrice(e.target.value)}
+                  value={ individualPrice ? Math.round(individualPrice/3): '' }
+                  onChange={(e) => setIndividualPrice(e.target.value*3)}
                 />
               </div>
               <div className="bg-white rounded-md border border-gray-300 px-3 py-2 text-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 ">
@@ -106,12 +117,14 @@ const page = () => {
                   className="w-full mt-3"
                 />
               </div>
-              <div className="bg-white flex gap-4 items-center rounded-md border border-gray-300 px-3 py-2 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 ">
-                <p className="text-gray-500">Start Date</p>
+              <div>
                 <input
-                  type="date"
-                  onChange={handleStartDateChange}
-                  value={startDate}
+                  type="Number"
+                  required
+                  className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 "
+                  placeholder="Total Lecture Time"
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
                 />
               </div>
             </div>
@@ -120,6 +133,7 @@ const page = () => {
               <button
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-purple-1 py-2 px font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                onClick={() => handleCreate({ title, price: individualPrice, description, thumbnail, domain, time })}
               >
                 Create
               </button>
