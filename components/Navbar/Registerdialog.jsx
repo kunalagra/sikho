@@ -6,7 +6,7 @@ import axios from 'axios';
 import { set } from 'mongoose';
 import Link from "next/link";
 const Register = () => {
-    let [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
