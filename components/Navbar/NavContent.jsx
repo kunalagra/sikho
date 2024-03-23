@@ -9,6 +9,7 @@ import Drawerdata from "./Drawerdata";
 import Signdialog from "./Signdialog";
 import Registerdialog from "./Registerdialog";
 import Contactus from "./Contactus";
+import { signOut } from 'next-auth/react';
 
 const navigation = [
     { name: 'Home', href: '/', current: true },
@@ -78,6 +79,15 @@ const NavContent = ({ session }) => {
                         {/* REGISTER DIALOG */}
 
                         {!userID && (<Registerdialog />)}
+
+                        {userID && (
+                            <button
+                                onClick={() => signOut()}
+                                className="text-15px font-medium text-purple hover:text-purple px-4 py-2 rounded-md border border-purple"
+                            >
+                                Sign Out
+                            </button>
+                        )}
 
 
                         {/* DRAWER FOR MOBILE VIEW */}

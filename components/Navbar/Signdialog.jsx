@@ -10,14 +10,6 @@ const Signin = () => {
     const [password, setPassword] = useState('')
     const [loginInProgress, setLoginInProgress] = useState(false);
 
-    async function handleFormSubmit(ev) {
-        ev.preventDefault();
-        setLoginInProgress(true);
-
-        await signIn('credentials', { email, password, callbackUrl: '/' });
-        setLoginInProgress(false);
-    }
-
     const closeModal = () => {
         setIsOpen(false)
     }
@@ -25,6 +17,15 @@ const Signin = () => {
     const openModal = () => {
         setIsOpen(true)
     }
+    async function handleFormSubmit(ev) {
+        ev.preventDefault();
+        setLoginInProgress(true);
+
+        await signIn('credentials', { email, password, callbackUrl: '/' });
+        setLoginInProgress(false);
+        closeModal();
+    }
+
 
     return (
         <>
