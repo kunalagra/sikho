@@ -8,7 +8,7 @@ const StudentSchema = new Schema({
   city: {type: String},
   country: {type: String},
   phone: {type: String},
-  courses: [{ type: Schema.Types.ObjectId, ref: 'LessonPlan',default: [] }],
+  lessons: [{ type: Schema.Types.ObjectId, ref: 'LessonPlan',default: [] }],
   peerVideo: [{ type: Schema.Types.ObjectId, ref: 'PeerVideo', default: [] }],
   reviews: [{ type: Schema.Types.ObjectId, ref: 'PeerVideoReview', default: [] }],
   rating: {type: Number, default: 50},

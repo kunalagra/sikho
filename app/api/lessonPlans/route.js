@@ -17,7 +17,7 @@ export async function GET() {
         const lesson = await Instructor.findById(userdata.userInfo).populate({
             path: 'plans',
             populate:{
-                path: 'courses',
+                path: 'lessons',
                 populate: ['plan','student','assignments']
         }})
         return new Response(JSON.stringify(lesson.plans),{status: 200})
@@ -25,10 +25,10 @@ export async function GET() {
     }
     else{
         const lesson = await Student.findById(userdata.userInfo).populate({
-            path: 'courses',
+            path: 'lessons',
             populate: ['plan','instructor','assignments']
         })
-        return new Response(JSON.stringify(lesson.courses),{status: 200})
+        return new Response(JSON.stringify(lesson.lessons),{status: 200})
 
     } 
 }

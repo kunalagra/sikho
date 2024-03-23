@@ -28,18 +28,17 @@ export async function GET() {
 async function CreateLesson(planinfo,userdata, size){
     const lesson = new LessonPlan({
         instructor: planinfo.instructor,
-        student: userdata.userInfo,
+        student: [userdata.userInfo],
         plan: planinfo._id,
         size: size,
         }
     )  
     const temp = await lesson.save()
     const stu = await Student.findById(userdata.userInfo)
-    stu.courses.push(temp._id)
-    const inst = await Instructor.findById(planinfo.instructor)
-    inst.courses.push(inst._id)
+    stu.lesson.push(temp._id)
+    planinfo.lesson.push(temp._id)
     await stu.save()
-    await inst.save()
+    await planinfo.save()
     return new Response('Student Enrolled in the batch',{status: 201})
 }
 
@@ -73,16 +72,16 @@ export async function POST(req) {
     }
     else if (userID && userdata.type=="Student"){
         // to-do balance add & subtract for instructors
-        const planinfo = await Plan.findById(data.planid).populate('c')
+        const planinfo = await Plan.findById(data.planid).populate('lesson')
         if (data.plan_size===1){
             await CreateLesson(planinfo, userdata,1)
         }else{
             let flag = true
-            for (let i = 0; i < planinfo.courses.length; i++) {
-                if (planinfo.courses[i].size>1 && planinfo.courses[i].student.length<6){
-                    planinfo.courses[i].student.push(userdata.userInfo)
+            for (let i = 0; i < planinfo.lesson.length; i++) {
+                if (planinfo.lesson[i].size>1 && planinfo.lesson[i].student.length<6){
+                    planinfo.lesson[i].student.push(userdata.userInfo)
                     const stu = await Student.findById(userdata.userInfo)
-                    stu.courses.push(temp._id)
+                    stu.lesson.push(temp._id)
                     await stu.save()
                     await planinfo.save()
                     flag = false
