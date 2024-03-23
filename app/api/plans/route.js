@@ -25,6 +25,24 @@ export async function GET() {
     } 
 }
 
+async function CreateLesson(planinfo,userdata, size){
+    const lesson = new LessonPlan({
+        instructor: planinfo.instructor,
+        student: userdata.userInfo,
+        plan: planinfo._id,
+        size: size,
+        }
+    )  
+    const temp = await lesson.save()
+    const stu = await Student.findById(userdata.userInfo)
+    stu.courses.push(temp._id)
+    const inst = await Instructor.findById(planinfo.instructor)
+    inst.courses.push(inst._id)
+    await stu.save()
+    await inst.save()
+    return new Response('Student Enrolled in the batch',{status: 201})
+}
+
 export async function POST(req) {
     await dbConnect();
     const session = await getServerSession(authOptions);
@@ -57,28 +75,23 @@ export async function POST(req) {
         // to-do balance add & subtract for instructors
         const planinfo = await Plan.findById(data.planid).populate('c')
         if (data.plan_size===1){
-            const lesson = new LessonPlan({
-                instructor: planinfo.instructor,
-                student: userdata.userInfo,
-                plan: data.planid,
-                size: 1,
-                }
-            )  
-            const temp = await lesson.save()
-            const stu = await Student.findById(userdata.userInfo)
-            stu.courses.push(temp._id)
-            const inst = await Instructor.findById(planinfo.instructor)
-            inst.courses.push(temp._id)
-            await stu.save()
-            await inst.save()
-            return new Response('Student Enrolled in 1 batch',{status: 201})
+            await CreateLesson(planinfo, userdata,1)
         }else{
-            const data = planinfo.courses.filter((data) => { 
-                if (data.size > 1  && data.student.length<6) {
-                    return true; 
-                } 
-              }); 
-            
+            let flag = true
+            for (let i = 0; i < planinfo.courses.length; i++) {
+                if (planinfo.courses[i].size>1 && planinfo.courses[i].student.length<6){
+                    planinfo.courses[i].student.push(userdata.userInfo)
+                    const stu = await Student.findById(userdata.userInfo)
+                    stu.courses.push(temp._id)
+                    await stu.save()
+                    await planinfo.save()
+                    flag = false
+                    break
+                }
+            }       
+            if (flag){
+                await CreateLesson(planinfo, userdata, 5)
+            }
         }
         
     }
