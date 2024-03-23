@@ -15,8 +15,6 @@ const navigation = [
     { name: 'Home', href: '/', current: true },
     { name: 'Courses', href: '#courses-section', current: false },
     { name: 'Mentors', href: '#mentors-section', current: false },
-    { name: 'Testimonial', href: '#testimonial-section', current: false },
-    { name: 'Join', href: '#join-section', current: false },
 ]
 
 function classNames(...classes) {

@@ -9,6 +9,8 @@ import Category from '../components/student/Categories/Category';
 import Instructor from '../components/Instructor/Instructor';
 import Plans from '../components/Plans/Plans';
 import SearchBar from '@/components/student/Banner/SearchBar';
+import Filters from '@/components/Filters/Filters';
+
 
 import IBanner from '@/components/instructor/IBanner';
 import IDashboard from '@/components/instructor/IDashboard';
@@ -40,6 +42,7 @@ export default async function Page() {
       <main>
         <SearchBar/>
         <Banner />
+      
         <Companies />
         <Tabs />
         <Mentor />
