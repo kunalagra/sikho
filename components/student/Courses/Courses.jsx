@@ -75,7 +75,9 @@ const NamesList = () => {
                 <div className='sm:flex justify-between items-center pb-12'>
                     <h2 className="h1-bold tracking-tight text-gray-900 my-4">Popular Courses</h2>
                     <div>
-                        <button className="bg-transparent hover:bg-purple-1 text-purple font-medium hover:text-white py-3 px-4 border border-purple hover:border-transparent rounded">
+                        <button 
+                            onClick={() => router.push('/explore')}
+                        className="bg-transparent hover:bg-purple-1 text-purple font-medium hover:text-white py-3 px-4 border border-purple hover:border-transparent rounded">
                             Explore Classes
                         </button>
                     </div>
