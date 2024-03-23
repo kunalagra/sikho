@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]/route.js"
 import { Student } from "@/models/Student.js";
 import {User} from "@/models/User";
+import { Instructor } from "@/models/Instructor.js";
 
 export async function GET() {
     await dbConnect();
@@ -29,7 +30,8 @@ export async function POST(req) {
           await dbConnect();
           const body = await req.json()
           const user = await User.findById(userID)
-          await Student.findByIdAndUpdate(user.userInfo,body )
+          const Model = user.type ==="Student" ? Student : Instructor 
+          await Model.findByIdAndUpdate(user.userInfo,body )
           return new Response('User Data Updated',{status: 201})
       }
       else{
