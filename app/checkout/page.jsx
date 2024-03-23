@@ -20,18 +20,13 @@ export default function Checkout() {
     // console.log(process.env.NODE_ENV)
     // console.log(`${process.env.REACT_APP_TITLE}`)
 
-    axios.post("/api/create-payment-intent", {
-      withCredentials: true,
-      accessControlAllowCredentials: true,
-      credientials: "same-origin",
-      amount: 1099,
-      headers: { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
+    axios.post("/api/create-payment-intent", { amount: 1099 }, {
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
       .then((res) => {
-        setClientSecret(res.data.clientSecret);
+        setClientSecret(res.data.paymentIntent.client_secret);
 
       })
       .catch((err) => {
@@ -53,7 +48,7 @@ export default function Checkout() {
     <div id="checkout">
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
+          <CheckoutForm clientSecret={clientSecret} />
         </Elements>
       )}
     </div>

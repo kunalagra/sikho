@@ -13,27 +13,31 @@ const page = () => {
     const [thumbnailImg, setThumbnailImg] = useState(null);
     const [domain, setDomain] = useState('');
     const [time, setTime] = useState('');
+    const [totalclasses, setTotalClasses] = useState('');
 
     const handleThumbnailChange = (e) => {
         setThumbnailImg(e.target.files[0]);
         console.log(e.target.files[0]);
-        setThumbnailImg(URL.createObjectURL(e.target.files[0]));
     }
 
     const handleCreate = (data) => {
-      fetch(`/api/plans`, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(res => {
-        if(res.status === 201) {
-          navigate.push('/')
-        }
-      })
-
+        // console.log(data);
+        const formData = new FormData();
+        formData.append('title', data.title);
+        formData.append('price', data.price);
+        formData.append('description', data.description);
+        formData.append('thumbnail', thumbnailImg);
+        formData.append('domain', data.domain);
+        formData.append('time', data.time);
+        formData.append('totalclasses', data.totalclasses)
+        fetch('/api/plans', {
+            method: 'POST',
+            body: formData,
+        })
+        .then((res) => navigate.push('/'))
+        .catch((err) => {
+            console.log(err);
+        })
     }
 
 
@@ -106,7 +110,7 @@ const page = () => {
                 <p>Thumbnail</p>
                 {thumbnailImg && (
                   <img
-                    src={thumbnailImg}
+                    src={URL.createObjectURL(thumbnailImg)}
                     alt={"thumbnail"}
                     className="w-full h-[200px] object-contain rounded-lg mt-3"
                   />
@@ -127,13 +131,23 @@ const page = () => {
                   onChange={(e) => setTime(e.target.value)}
                 />
               </div>
+              <div>
+                <input
+                  type="Number"
+                  required
+                  className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 "
+                  placeholder="Total Classes"
+                  value={totalclasses}
+                  onChange={(e) => setTotalClasses(e.target.value)}
+                />
+              </div>
             </div>
 
             <div>
               <button
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-purple-1 py-2 px font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={() => handleCreate({ title, price: individualPrice, description, thumbnail, domain, time })}
+                onClick={() => handleCreate({ title, price: individualPrice, description, thumbnail, domain, time, totalclasses })}
               >
                 Create
               </button>
