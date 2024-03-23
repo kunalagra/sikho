@@ -4,6 +4,7 @@ import {Student} from "@/models/Student.js";
 import {Instructor} from "@/models/Instructor.js";
 import {Plan} from '@/models/Plan.js'
 import {LessonPlan} from '@/models/LessonPlan.js'
+import {Assignment} from '@/models/Assignment.js'
 
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]/route.js"

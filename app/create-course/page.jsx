@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-
 const page = () => {
 
   const navigate = useRouter();
@@ -17,11 +16,10 @@ const page = () => {
 
     const handleThumbnailChange = (e) => {
         setThumbnailImg(e.target.files[0]);
-        console.log(e.target.files[0]);
     }
 
-    const handleCreate = (data) => {
-        // console.log(data);
+    const handleCreate = async (e,data) => {
+        e.preventDefault();
         const formData = new FormData();
         formData.append('title', data.title);
         formData.append('price', data.price);
@@ -30,6 +28,7 @@ const page = () => {
         formData.append('domain', data.domain);
         formData.append('time', data.time);
         formData.append('totalclasses', data.totalclasses)
+
         fetch('/api/plans', {
             method: 'POST',
             body: formData,
@@ -147,7 +146,7 @@ const page = () => {
               <button
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-purple-1 py-2 px font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={() => handleCreate({ title, price: individualPrice, description, thumbnail, domain, time, totalclasses })}
+                onClick={(e) => handleCreate(e,{ title, price: individualPrice, description, thumbnail, domain, time, totalclasses })}
               >
                 Create
               </button>
