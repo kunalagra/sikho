@@ -73,7 +73,7 @@ const NamesList = () => {
             <div id='courses-section' className="mx-auto max-w-2xl py-6 px-4 lg:max-w-7xl lg:px-8">
 
                 <div className='sm:flex justify-between items-center pb-12'>
-                    <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-gray-900 my-4">Popular Courses</h2>
+                    <h2 className="h1-bold tracking-tight text-gray-900 my-4">Popular Courses</h2>
                     <div>
                         <button className="bg-transparent hover:bg-purple-1 text-purple font-medium hover:text-white py-3 px-4 border border-purple hover:border-transparent rounded">
                             Explore Classes

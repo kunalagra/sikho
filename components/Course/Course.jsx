@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import React, { useState } from 'react'
 import Link from 'next/link';
 import Plans from '../Plans/Plans';
+import ScheduleMeeting from './ScheduleMeeting';
 
 const Course = ({ course }) => {
 
@@ -122,11 +123,11 @@ const Course = ({ course }) => {
           <button className='py-2 px-6 rounded-lg border text-purple-1 hover:text-white border-purple-1 hover:bg-purple-1 transition-all'>
             Add to Cart
           </button>
-          <Link href='#buy-course'>
+          {/* <Link href='#buy-course'> */}
             <button className='py-2 px-6 rounded-lg text-white bg-purple-1 active:bg-purple-2'>
               Buy now
             </button>
-          </Link>
+          {/* </Link> */}
         </div>
       </div>
 
@@ -135,9 +136,9 @@ const Course = ({ course }) => {
           What you'll learn
         </h3>
 
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis, aliquam voluptas laudantium incidunt architecto nam excepturi provident rem laborum repellendus placeat neque aut doloremque ut ullam, veritatis nesciunt iusto officia alias, non est vitae. Eius repudiandae optio quam alias aperiam nemo nam tempora, dignissimos dicta excepturi ea quo ipsum omnis maiores perferendis commodi voluptatum facere vel vero. Praesentium quisquam iure veritatis, perferendis adipisci sequi blanditiis quidem porro eligendi fugiat facilis inventore amet delectus expedita deserunt ut molestiae modi laudantium, quia tenetur animi natus ea. Molestiae molestias ducimus pariatur et consectetur. Error vero, eum soluta delectus necessitatibus eligendi numquam hic at?</p>
+        <ul className='list-disc'><li className='ml-5'>In this course, you'll have the opportunity to learn from an experienced instructor who brings a wealth of expertise and practical knowledge to the table.</li> <li className='ml-5'>With a proven track record in the field of software development, I am dedicated to providing clear, concise, and engaging instruction that empowers students to succeed.</li> <li className='ml-5'>From building robust applications to implementing efficient coding practices, I'll guide you through the intricacies of software development with ease.</li> <li className='ml-5'>Through comprehensive explanations, hands-on demonstrations, and real-world examples, I strive to make complex software development concepts accessible and understandable for learners of all levels.</li> <li className='ml-5'>By choosing this course, you'll benefit from my passion for teaching and commitment to helping you achieve your goals in mastering software development.</li></ul>
       </div>
-
+      
       <div className='flex flex-col gap-4 px-4 py-8 shadow-lg bg-white rounded-lg'>
         <h3 className='h3-bold'>
           Modules
@@ -212,7 +213,8 @@ const Course = ({ course }) => {
         </div>
       </div>
 
-      <div>
+      <div id="buy-course" className='my-6'>
+        <h2 className='h2-bold text-center mb-4'>Pricings</h2>
         <Plans Price={course.price} />
       </div>
     </div>
