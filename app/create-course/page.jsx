@@ -110,7 +110,7 @@ const page = () => {
                 <p>Thumbnail</p>
                 {thumbnailImg && (
                   <img
-                    src={thumbnailImg}
+                    src={URL.createObjectURL(thumbnailImg)}
                     alt={"thumbnail"}
                     className="w-full h-[200px] object-contain rounded-lg mt-3"
                   />
