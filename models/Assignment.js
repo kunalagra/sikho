@@ -6,9 +6,11 @@ const AssignmentSchema = new Schema({
     start: {type: Date, default: Date.now},
     end: {type: Date},
     submissions: [
-         {student: {type: Schema.Types.ObjectId, ref: 'User', required: True}
-         ,solution: {type: String, required: True,
-        grading: {type: Number}}
+         {
+        student: {type: Schema.Types.ObjectId, ref: 'User'},
+        solution: {type: String},
+        grading: {type: Number},
+        submitTime: {type: Date, default: Date.now}
     }
     ]
 })
