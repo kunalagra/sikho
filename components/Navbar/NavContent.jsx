@@ -82,7 +82,7 @@ const NavContent = ({ session }) => {
 
                         {userID && (
                             <button
-                                onClick={() => signOut()}
+                                onClick={() => {signOut(), localStorage.clear()}}
                                 className="text-15px font-medium text-purple hover:text-purple px-4 py-2 rounded-md border border-purple"
                             >
                                 Sign Out

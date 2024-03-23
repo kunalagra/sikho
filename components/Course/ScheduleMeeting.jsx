@@ -4,7 +4,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 const ScheduleMeeting = () => {
 
-  const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
+  const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(true);
   const [selectedDate, setSelectedDate] = useState();
   const [selectedTime, setSelectedTime] = useState(0);
 
