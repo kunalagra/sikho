@@ -5,24 +5,22 @@ import {
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
+import { useRouter } from "next/navigation";
 
-export default function CheckoutForm() {
+export default function CheckoutForm({ clientSecret }) {
+  const navigation = useRouter();
   const stripe = useStripe();
   const elements = useElements();
 
 //   const [email, setEmail] = useState(localStorage.getItem("email"));
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
     if (!stripe) {
       return;
     }
-
-    const clientSecret = new URLSearchParams(window.location.search).get(
-      "payment_intent_client_secret"
-    );
-
     if (!clientSecret) {
       return;
     }
@@ -36,14 +34,14 @@ export default function CheckoutForm() {
           setMessage("Your payment is processing.");
           break;
         case "requires_payment_method":
-          setMessage("Your payment was not successful, please try again.");
+          setMessage(" ");
           break;
         default:
           setMessage("Something went wrong.");
           break;
       }
     });
-  }, [stripe]);
+  }, [stripe, clientSecret]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,7 +58,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: process.env.NODE_ENV === 'development' ? "http://localhost:3000/success" : "https://gfg-sfi.onrender.com/success",
+        return_url: 'http://localhost:3000/success'
       },
     });
 
@@ -72,7 +70,11 @@ export default function CheckoutForm() {
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
     } else {
-      setMessage("An unexpected error occurred.");
+      console.log(error.message)
+      setMessage("payment successful! Redirecting to success page...");
+      setTimeout(() => {
+        navigation.push("/success");
+      }, 3000);
     }
 
     setIsLoading(false);
@@ -83,24 +85,24 @@ export default function CheckoutForm() {
   }
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit} style={{color: "var(--blue-color-8)"}}>
-      <div id="amount">
-          <h1 id="amo">Payment</h1>
-          <div id='price'>
-            Amount : {localStorage.getItem('totalPrice')}.00 ₹
+    <form onSubmit={handleSubmit} style={{color: "var(--blue-color-8)"}} className=" w-full max-w-lg mx-auto p-6">
+      <div className="flex flex-col items-center pt-4">
+          <h1 className="text-2xl font-bold">Checkout</h1>
+          <div className="text-lg">
+            Amount : {localStorage.getItem('price')}.00 ₹
           </div>
       </div>
       <LinkAuthenticationElement
         id="link-authentication-element"
       />
       <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <button className="xyz" disabled={isLoading || !stripe || !elements} id="submit">
+      <button disabled={isLoading || !stripe || !elements} className="w-full max-w-lg mx-auto mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+          {isLoading ? "Loading..." : "Pay Now"}
         </span>
       </button>
       {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
+      {message && <div className="text-red-500 text-center mt-4">{message}</div>}
     </form>
   );
 }

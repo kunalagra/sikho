@@ -4,8 +4,11 @@ import React, { useState } from "react";
 import "../Instructor/becomeInstructor.css";
 import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 import Edit from "@mui/icons-material/Edit";
+import { useRouter } from "next/navigation";
 
 function Plans({Price, id, isUser}) {
+
+    const navigate = useRouter();
 
     const [regularPrice, setRegularPrice] = useState(Price);
     const [isOpen, setIsOpen] = useState(false);
@@ -119,7 +122,13 @@ function Plans({Price, id, isUser}) {
                     </div>
 
                     <div className="mt-8">
-                        <button className="bg-slate-500 hover:bg-slate-600 px-3 py-2 rounded-lg w-full text-white">
+                        <button className="bg-slate-500 hover:bg-slate-600 px-3 py-2 rounded-lg w-full text-white"
+                            onClick={() => {
+                                navigate.push('/checkout')
+                                localStorage.setItem("price", regularPrice)
+                            }
+                        }
+                        >
                             Buy now
                         </button>
                     </div>
@@ -186,7 +195,13 @@ function Plans({Price, id, isUser}) {
                     </div>
 
                     <div className="mt-8">
-                        <button className="bg-blue-400 hover:bg-blue-500 px-3 py-2 rounded-lg w-full text-white">
+                        <button className="bg-blue-400 hover:bg-blue-500 px-3 py-2 rounded-lg w-full text-white"
+                        onClick={() => {
+                            navigate.push('/checkout')
+                            localStorage.setItem("price", regularPrice)
+                        }
+                    }
+                        >
                             Buy now
                         </button>
                     </div>

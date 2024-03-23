@@ -51,7 +51,8 @@ export async function POST(req) {
     const userID = session?.user?._id;
     const userdata = await User.findById(userID)
     if (userID && userdata.type=="Instructor"){
-        const isJSON = req.headers['content-type'] && req.headers['content-type'].includes('application/json');
+        // const isJSON = req.headers['content-type'] && req.headers['content-type'].includes('application/json');
+        const isJSON = false
         if (isJSON){
             let query = {_id: data.id}
             let options = {new: true};
@@ -60,6 +61,7 @@ export async function POST(req) {
         }
         else{
             const formData = await req.formData()
+            console.log(formData)
             const title = formData.get('title')
             const price = formData.get('price')
             const description = formData.get('description')
