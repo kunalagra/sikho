@@ -1,15 +1,34 @@
 "use client"
+import { useState } from 'react';
 import Dropdownone from './Dropdownone';
 import Dropdowntwo from './Dropdowntwo';
+import Link from 'next/link';
 
 
 const Banner = () => {
+    
+    const techs = {
+        'Web Development': ['Flask', 'HTML/CSS/JS', 'ReactJS', 'AngularJS', 'All'],
+        'Full Stack Development': ['MERN Stack', 'MEAN Stack', 'All'],
+        'Programming': ['Python', 'C/C++', 'Java', 'Javascript', 'All'],
+        'Database': ['SQL', 'MongoDB', 'Firebase', 'All'],
+        'Android Development': ['Flutter', 'React Native', 'Kotlin', 'All'],
+        'Machine Learning': ['Python', 'R', 'All'],
+        'Devops': ['Python', 'All'],
+        'Software Development': ['Python', 'All'],
+    }
+
+    const topics = Object.keys(techs);
+
+    const [domain, setDomain] = useState('Web Development');
+    const [tech, setTech] = useState('All');
+
     return (
         <main className='banner-image'>
             <div className="relative px-6 lg:px-8">
                 <div className="mx-auto max-w-5xl pt-16 sm:pt-40 sm:pb-24">
                     <div className="text-center">
-                        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-75px md:4px">
+                        <h1 className="text-6xl font-bold tracking-tight text-gray-900 sm:text-75px md:4px">
                             Advance your engineering <br /> skills with our courses
                         </h1>
                         <p className="mt-6 text-lg leading-8 text-black">
@@ -62,15 +81,17 @@ const Banner = () => {
                     <div className="mx-auto max-w-4xl mt-24 pt-6 pb-8 px-6 lg:max-w-4xl lg:px-8 bg-white rounded-lg boxshadow">
                         <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-8 xl:gap-x-8">
                             <div className="col-span-3">
-                                <Dropdownone />
+                                <Dropdownone topics={topics} selected={domain} setSelected={setDomain} />
                             </div>
                             <div className="col-span-3">
-                                <Dropdowntwo />
+                                <Dropdowntwo techs={techs[domain]} selected={tech} setSelected={setTech} />
                             </div>
                             <div className="col-span-3 sm:col-span-2 mt-2">
-                                <button className="bg-purple-1 w-full hover:bg-pruple-2 text-white font-bold py-4 px-3 rounded">
-                                    Start
-                                </button>
+                                <Link href={`/explore?domain=${domain.toLowerCase().split(' ').join('-')}&tech=${tech.toLowerCase().split(' ').join('-')}`}>
+                                    <button className="bg-purple-1 w-full hover:bg-pruple-2 text-white font-bold py-4 px-3 rounded">
+                                        Explore
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </div>
