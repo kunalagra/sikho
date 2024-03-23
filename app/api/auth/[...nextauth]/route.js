@@ -13,15 +13,29 @@ export const authOptions = {
   },
     callbacks: {
     async jwt({ token, user }) {
+      console.log(user)
       if (user?._id) token._id = user._id;
-      if (user?.isAdmin) token.isAdmin = user.isAdmin;
+      if (user?.type) token.type = user.type;
+
       return token;
     },
-    async session({ session, token }) {
-      if (token?._id) session.user._id = token._id;
-      if (token?.isAdmin) session.user.isAdmin = token.isAdmin;
-      return session;
+    async session ({ session, token, user }) {
+      const sanitizedToken = Object.keys(token).reduce((p, c) => {
+        // strip unnecessary properties
+        if (
+          c !== "iat" &&
+          c !== "exp" &&
+          c !== "jti" &&
+          c !== "apiToken"
+        ) {
+          return { ...p, [c]: token[c] }
+        } else {
+          return p
+        }
+      }, {})
+      return { ...session, user: sanitizedToken, apiToken: token.apiToken }
     },
+    
   },
   providers: [
     CredentialsProvider({
