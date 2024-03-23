@@ -7,7 +7,6 @@ import {LessonPlan} from '@/models/LessonPlan.js'
 
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]/route.js"
-import { TRACE_OUTPUT_VERSION } from 'next/dist/shared/lib/constants.js';
 import { Assignment } from '@/models/Assignment.js';
 
 export async function GET(req) {
