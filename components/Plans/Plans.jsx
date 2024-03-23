@@ -6,7 +6,7 @@ import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 import Edit from "@mui/icons-material/Edit";
 import { useRouter } from "next/navigation";
 
-function Plans({Price, id, isUser}) {
+function Plans({ Price, id, isUser }) {
 
     const navigate = useRouter();
 
@@ -19,9 +19,9 @@ function Plans({Price, id, isUser}) {
             method: 'POST',
             body: JSON.stringify(price),
             headers: {
-              'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             }
-          })
+        })
 
     }
 
@@ -33,24 +33,24 @@ function Plans({Price, id, isUser}) {
                 </DialogTitle>
                 <DialogContent>
                     <div className="w-[400px]">
-                    <div className="flex gap-4 items-center">
-                        <p className="text-3xl font-medium">₹</p>
-                        <input
-                            type="number"
-                            required
-                            className="mb-3 py-3 relative block w-full appearance-none rounded-md border border-gray-300 px-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 "
-                            placeholder={''}
-                            value={value}
-                            onChange={(e) => setValue(e.target.value)}
+                        <div className="flex gap-4 items-center">
+                            <p className="text-3xl font-medium">₹</p>
+                            <input
+                                type="number"
+                                required
+                                className="mb-3 py-3 relative block w-full appearance-none rounded-md border border-gray-300 px-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 "
+                                placeholder={''}
+                                value={value}
+                                onChange={(e) => setValue(e.target.value)}
                             />
-                    </div>
-                    <button className="w-full py-3 text-white bg-blue-500 rounded-lg" onClick={() => {
-                        setRegularPrice(value)
-                        setIsOpen(false);
-                        handleUpdatePrice({ id: id, price: value})
-                    }}>
-                        Save
-                    </button>
+                        </div>
+                        <button className="w-full py-3 text-white bg-blue-500 rounded-lg" onClick={() => {
+                            setRegularPrice(value)
+                            setIsOpen(false);
+                            handleUpdatePrice({ id: id, price: value })
+                        }}>
+                            Save
+                        </button>
                     </div>
                 </DialogContent>
             </Dialog>
@@ -58,9 +58,9 @@ function Plans({Price, id, isUser}) {
                 <div className="w-[400px] shadow-lg p-5 rounded-lg border-t-4 border-green-400 bg-white">
                     <div className="flex items-center gap-5">
                         <p className="uppercase text-sm font-medium text-gray-500">
-                            Individual Plan 
+                            Individual Plan
                         </p>
-                        {isUser == 'Instructor' && 
+                        {isUser == 'Instructor' &&
                             <button onClick={() => { setIsOpen(true); setValue(regularPrice) }}>
                                 <Edit className="p-1 bg-blue-500 active:bg-blue-600 rounded-lg text-white" />
                             </button>
@@ -124,12 +124,13 @@ function Plans({Price, id, isUser}) {
                     <div className="mt-8">
                         <button className="bg-slate-500 hover:bg-slate-600 px-3 py-2 rounded-lg w-full text-white"
                             onClick={() => {
-                                navigate.push('/checkout')
-                                localStorage.setItem("price", regularPrice)
-                                localStorage.setItem("plan", 1)
-                                localStorage.setItem("id", id)
+                                isUser ? (
+                                    navigate.push('/checkout'),
+                                    localStorage.setItem("price", regularPrice),
+                                    localStorage.setItem("plan", 1),
+                                    localStorage.setItem("id", id)) : (alert('Please login to continue'))
                             }
-                        }
+                            }
                         >
                             Buy now
                         </button>
@@ -141,7 +142,7 @@ function Plans({Price, id, isUser}) {
                     </div>
 
                     <h2 className="mt-4 text-4xl text-gray-700 font-medium">
-                        ₹ {Math.round(regularPrice/3)} <span className="text-base font-normal">(Super Saver)</span>
+                        ₹ {Math.round(regularPrice / 3)} <span className="text-base font-normal">(Super Saver)</span>
                     </h2>
 
                     <p className="mt-4 font-medium text-gray-700">
@@ -198,13 +199,15 @@ function Plans({Price, id, isUser}) {
 
                     <div className="mt-8">
                         <button className="bg-blue-400 hover:bg-blue-500 px-3 py-2 rounded-lg w-full text-white"
-                        onClick={() => {
-                            navigate.push('/checkout')
-                            localStorage.setItem("price", regularPrice)
-                            localStorage.setItem("plan", 5)
-                            localStorage.setItem("id", id)
-                        }
-                    }
+                            onClick={() => {
+                                isUser ? (
+                                    navigate.push('/checkout'),
+                                    localStorage.setItem("price", regularPrice),
+                                    localStorage.setItem("plan", 5),
+                                    localStorage.setItem("id", id)
+                                ) : (alert('Please login to continue'))
+                            }
+                            }
                         >
                             Buy now
                         </button>
