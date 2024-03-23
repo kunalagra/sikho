@@ -1,7 +1,7 @@
 import React from "react";
 import "../Instructor/becomeInstructor.css";
 
-function Plans() {
+function Plans({Price}) {
     return (
         <div className="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto">
             <div className="shadow-lg p-5 rounded-lg border-t-4 border-green-400 bg-white">
@@ -9,7 +9,7 @@ function Plans() {
                     Individual Plan
                 </p>
 
-                <p className="mt-4 text-3xl text-gray-700 font-medium">₹ 5000</p>
+                <p className="mt-4 text-3xl text-gray-700 font-medium">₹ {Price}</p>
 
                 <p className="mt-4 font-medium text-gray-700">
                     Recommended Best for your learning growth
@@ -74,7 +74,7 @@ function Plans() {
                 <p className="uppercase text-sm font-medium text-gray-500">Group Plan</p>
 
                 <p className="mt-4 text-3xl text-gray-700 font-medium">
-                    ₹ 1500 <span className="text-base font-normal"></span>
+                    ₹ {Price/2} <span className="text-base font-normal"></span>
                 </p>
 
                 <p className="mt-4 font-medium text-gray-700">

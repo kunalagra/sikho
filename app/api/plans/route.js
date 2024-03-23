@@ -51,8 +51,8 @@ export async function POST(req) {
     const data = await req.json()
     if (userID && userdata.type=="Instructor"){
         
-        if (data._id){
-            let query = {_id: data._id}
+        if (data.id){
+            let query = {_id: data.id}
             let options = {new: true};
             await Plan.findOneAndUpdate(query, data, options);
             return new Response('Plan Updated',{status: 201})
