@@ -26,20 +26,20 @@ export async function GET() {
 }
 
 async function CreateLesson(planinfo,userdata, size){
-    const lesson = new LessonPlan({
+    const lessons = new LessonPlan({
         instructor: planinfo.instructor,
         student: [userdata.userInfo],
         plan: planinfo._id,
         size: size,
         }
     )  
-    const temp = await lesson.save()
+    const temp = await lessons.save()
     const stu = await Student.findById(userdata.userInfo)
-    stu.lesson.push(temp._id)
-    planinfo.lesson.push(temp._id)
+    stu.lessons.push(temp._id)
+    planinfo.lessons.push(temp._id)
     await stu.save()
     await planinfo.save()
-    return new Response('Student Enrolled in the batch',{status: 201})
+    
 }
 
 export async function POST(req) {
@@ -72,16 +72,17 @@ export async function POST(req) {
     }
     else if (userID && userdata.type=="Student"){
         // to-do balance add & subtract for instructors
-        const planinfo = await Plan.findById(data.planid).populate('lesson')
+        const planinfo = await Plan.findById(data.planid).populate('lessons')
         if (data.plan_size===1){
             await CreateLesson(planinfo, userdata,1)
+            return new Response('Student Enrolled in 1 mode',{status: 201})
         }else{
             let flag = true
-            for (let i = 0; i < planinfo.lesson.length; i++) {
-                if (planinfo.lesson[i].size>1 && planinfo.lesson[i].student.length<6){
-                    planinfo.lesson[i].student.push(userdata.userInfo)
+            for (let i = 0; i < planinfo.lessons.length; i++) {
+                if (planinfo.lessons[i].size>1 && planinfo.lessons[i].student.length<6){
+                    planinfo.lessons[i].student.push(userdata.userInfo)
                     const stu = await Student.findById(userdata.userInfo)
-                    stu.lesson.push(temp._id)
+                    stu.lessons.push(temp._id)
                     await stu.save()
                     await planinfo.save()
                     flag = false
@@ -90,6 +91,7 @@ export async function POST(req) {
             }       
             if (flag){
                 await CreateLesson(planinfo, userdata, 5)
+                return new Response('Student Enrolled in the batch',{status: 201})
             }
         }
         
