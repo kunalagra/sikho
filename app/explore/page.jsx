@@ -7,18 +7,25 @@ const page = () => {
   const searchParams = useSearchParams();
   const domain = searchParams.get("domain")? searchParams.get("domain").split("-").join(" ") : "";
   const tech = searchParams.get("tech")? searchParams.get("tech").split("-").join(" ") : "";
+    const keyword = searchParams.get("keyword")? searchParams.get("keyword").split("-").join(" ") : "";
   const [courses, setCourses] = useState([]);
   const router = useRouter();
 
   const fetchCourses = async () => {
     const res = await fetch("/api/plans");
     const data = await res.json();
-    if (domain) {
+    if(keyword){
       setCourses(data.filter(course => {
-        return course.domain.toLowerCase()===domain
+        return course.title.toLowerCase().includes(keyword) || course.domain.toLowerCase().includes(keyword);
       }));
     } else {
-      setCourses(data);
+      if (domain) {
+        setCourses(data.filter(course => {
+          return course.domain.toLowerCase()===domain
+        }));
+      } else {
+        setCourses(data);
+      }
     }
   };
 
