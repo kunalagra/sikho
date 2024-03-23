@@ -155,7 +155,6 @@ function Plans({Price}) {
                     </div>
                 </div>
             </div>
-        </>
     );
 }
 
