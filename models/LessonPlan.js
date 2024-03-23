@@ -12,7 +12,7 @@ const LessonPlanSchema = new Schema({
     size: {type: Number, default: 1},
     status: { type: String, enum: ['draft', 'active', 'completed'], default: 'draft' },
     createdAt: { type: Date, default: Date.now },  
-    assignments: [{ type: Schema.Types.ObjectId, ref: 'Assignment', required: true }]
+    assignments: [{ type: Schema.Types.ObjectId, ref: 'Assignment', default: [] }]
   });
   
 export const LessonPlan = models?.LessonPlan || model('LessonPlan', LessonPlanSchema);
