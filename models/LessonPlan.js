@@ -1,8 +1,8 @@
 import {model, models, Schema} from "mongoose";
 
 const LessonPlanSchema = new Schema({
-    instructor: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    student: [{ type: Schema.Types.ObjectId, ref: 'User', required: true }],
+    instructor: { type: Schema.Types.ObjectId, ref: 'Instructor', required: true },
+    student: [{ type: Schema.Types.ObjectId, ref: 'Student', required: true }],
     plan: { type: Schema.Types.ObjectId, ref: 'Plan', required: true },
     schedule: {
       startDate: { type: Date },
