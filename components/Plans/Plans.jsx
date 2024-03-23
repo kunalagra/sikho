@@ -5,7 +5,7 @@ import "../Instructor/becomeInstructor.css";
 import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 import Edit from "@mui/icons-material/Edit";
 
-function Plans() {
+function Plans({Price}) {
 
     const [regularPrice, setRegularPrice] = useState(2399);
     const [groupPrice, setGroupPrice] = useState(799);
@@ -15,47 +15,13 @@ function Plans() {
     const isUser = false;
 
     return (
-        <>
-            <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-                <DialogTitle>
-                    {isRegular? 'Individual Price' : 'Group Price'}
-                </DialogTitle>
-                <DialogContent>
-                    <div className="w-[400px]">
-                    <div className="flex gap-4 items-center">
-                        <p className="text-3xl font-medium">₹</p>
-                        <input
-                            type="number"
-                            required
-                            className="mb-3 py-3 relative block w-full appearance-none rounded-md border border-gray-300 px-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 "
-                            placeholder={''}
-                            value={value}
-                            onChange={(e) => setValue(e.target.value)}
-                            />
-                    </div>
-                    <button className="w-full py-3 text-white bg-blue-500 rounded-lg" onClick={() => {
-                        isRegular? setRegularPrice(value) : setGroupPrice(value);
-                        setIsOpen(false);
-                    }}>
-                        Save
-                    </button>
-                    </div>
-                </DialogContent>
-            </Dialog>
-            <div className="w-full md:w-2/3 flex gap-6 items-center mx-auto">
-                <div className="w-[400px] shadow-lg p-5 rounded-lg border-t-4 border-green-400 bg-white">
-                    <div className="flex items-center gap-5">
-                        <p className="uppercase text-sm font-medium text-gray-500">
-                            Individual Plan 
-                        </p>
-                        {!isUser && 
-                            <button onClick={() => { setIsRegular(true); setIsOpen(true); setValue(regularPrice) }}>
-                                <Edit className="p-1 bg-blue-500 active:bg-blue-600 rounded-lg text-white" />
-                            </button>
-                        }
-                    </div>
+        <div className="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto">
+            <div className="shadow-lg p-5 rounded-lg border-t-4 border-green-400 bg-white">
+                <p className="uppercase text-sm font-medium text-gray-500">
+                    Individual Plan
+                </p>
 
-                    <h2 className="mt-4 text-4xl text-gray-700 font-medium">₹ {regularPrice}</h2>
+                <p className="mt-4 text-3xl text-gray-700 font-medium">₹ {Price}</p>
 
                     <p className="mt-4 font-medium text-gray-700">
                         Recommended Best for your learning growth
@@ -127,7 +93,7 @@ function Plans() {
                     </div>
 
                     <h2 className="mt-4 text-4xl text-gray-700 font-medium">
-                        ₹ {groupPrice} <span className="text-base font-normal">(Super Saver)</span>
+                        ₹ {Price/2} <span className="text-base font-normal">(Super Saver)</span>
                     </h2>
 
                     <p className="mt-4 font-medium text-gray-700">
@@ -189,7 +155,6 @@ function Plans() {
                     </div>
                 </div>
             </div>
-        </>
     );
 }
 

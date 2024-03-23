@@ -19,6 +19,27 @@ const Course = ({ course }) => {
   const [lessonNoEdit, setLessonNoEdit] = useState(0);
   const [modules, setModules] = useState(course.modules);
 
+  const handleUpdate = (module) => {
+    // console.log(module.modules);
+    fetch(`/api/plans`, {
+      method: 'POST',
+      body: JSON.stringify(module),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then( async (res) => { 
+      if (res.status === 201) {
+        const res = await fetch(`/api/getPlanByID?id=${module.id}`);
+        const data = await res.json();
+        setModules(data.modules);
+        setIsEditModalOpen(false);
+      }
+      
+    })
+    .catch(err => console.log(err));
+  }
+
   return (
     <div className='w-full flex flex-col gap-8'>
 
@@ -47,16 +68,20 @@ const Course = ({ course }) => {
               if (renameValue!=='') {
                 const i = moduleNoEdit;
                 const j = lessonNoEdit;
-                if (isModuleNameEdit)
-                  setModules([...modules.slice(0,i),{...modules[i], title: renameValue, description: descValue} ,...modules.slice(i+1)]);
-                else {
-                  setModules(
-                    [...modules.slice(0,i),
-                      {...modules[i], lessons: [...modules[i].lessons.slice(0,j),{...modules[i].lessons[j], title: renameValue, content: descValue} ,...modules[i].lessons.slice(j+1)]},
-                      ...modules.slice(i+1)
-                    ]);
+                let data = [];
+                if (isModuleNameEdit) {
+                  data = [...modules.slice(0,i),{...modules[i], title: renameValue, description: descValue} ,...modules.slice(i+1)];
+                  setModules(data);
                 }
-                setIsEditModalOpen(false);
+                else {
+                  data = [...modules.slice(0,i),
+                    {...modules[i], lessons: [...modules[i].lessons.slice(0,j),{...modules[i].lessons[j], title: renameValue, content: descValue} ,...modules[i].lessons.slice(j+1)]},
+                    ...modules.slice(i+1)
+                  ];
+                  setModules(data);
+                }
+                // console.log(data);
+                handleUpdate({id: course._id, modules: data});
               }
             }}>
               Rename
@@ -81,14 +106,14 @@ const Course = ({ course }) => {
           {course.description}
         </p>
         <div className='flex gap-4 items-center'>
-          <p>4.8 stars</p>
+          <p>{course.rating} stars</p>
           <p className='underline'>230 reviews</p>
           <div className='bg-slate-300 py-1 px-2 rounded-lg'>
-            <p>123 students enrolled</p>
+            <p>Enrolled : {course.lessons.length}</p>
           </div>
           <p>|</p>
           <div>
-            <p>By {course.author}</p>
+            <p>By {course.instructor.name}</p>
           </div>
         </div>
         <div className='flex items-center gap-3'>
@@ -146,7 +171,10 @@ const Course = ({ course }) => {
                       <p className='font-bold'>Lesson {ind+1}: {lesson.title}</p>
                       <div className='flex gap-2'>
                         {!isUser && 
-                          <button onClick={() => {setModuleNoEdit(index); setLessonNoEdit(ind); setRenameValue(lesson.title); setDescValue(lesson.content); setIsModuleNameEdit(false); setIsEditModalOpen(true);}}>
+                          <button onClick={() => {
+                            setModuleNoEdit(index); 
+                            setLessonNoEdit(ind); 
+                            setRenameValue(lesson.title); setDescValue(lesson.content); setIsModuleNameEdit(false); setIsEditModalOpen(true);}}>
                             <EditIcon className='bg-blue-500 active:bg-blue-600 rounded-lg p-1 cursor-pointer text-white' 
                             />
                           </button>
@@ -183,7 +211,7 @@ const Course = ({ course }) => {
       </div>
 
       <div>
-        <Plans />
+        <Plans Price={course.price} />
       </div>
     </div>
   )
