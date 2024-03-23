@@ -1,4 +1,4 @@
-// import bcrypt from "bcrypt";
+import bcrypt from "bcrypt";
 import dbConnect from '@/utils/dbConnect';
 import {User} from '@/models/User';
 import NextAuth, {getServerSession} from "next-auth";
@@ -49,8 +49,6 @@ export const authOptions = {
 
         await dbConnect()
         const user = await User.findOne({email});
-        const bcrypt = require("bcrypt");
-
         const passwordOk = user && bcrypt.compareSync(password, user.password);
         if (passwordOk) {
           return user;
