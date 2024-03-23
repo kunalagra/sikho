@@ -1,8 +1,7 @@
-"use client";
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Drawer from "./Drawer";
 import Drawerdata from "./Drawerdata";
 import Signdialog from "./Signdialog";
@@ -27,7 +26,21 @@ function classNames(...classes) {
 const Navbar = () => {
 
 
-    const userID = "1234567890";
+    // const userID = "1234567890";
+    
+    const [userID, setUserID] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const session = await getServerSession();
+            if (session) {
+                setUserID(session.user._id);
+            }
+        }
+        fetchData();
+    }, []);
+    
+
 
     const [isOpen, setIsOpen] = useState(false);
 
