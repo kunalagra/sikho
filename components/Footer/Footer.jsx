@@ -15,7 +15,7 @@ const products = [
 
 const footer = () => {
     return (
-        <div className="bg-bgpurple -mt-64" id="first-section">
+        <div className="bg-purple-1 -mt-64" id="first-section">
             <div className="mx-auto max-w-2xl pt-64 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
                 <div className="mt-24 grid grid-cols-1 gap-y-10 gap-x-16 sm:grid-cols-2 lg:grid-cols-12 xl:gap-x-8">
 
@@ -52,7 +52,7 @@ const footer = () => {
                     <div className='col-span-4'>
                         <h3 className='text-white text-xl font-semibold mb-6'>Stay up to date</h3>
                         <div className="relative text-white focus-within:text-white flex flex-row-reverse">
-                            <input type="Email address" name="q" className="py-4 text-sm w-full text-white bg-gray-900 rounded-md pl-4 focus:outline-none bg-emailbg focus:text-white" placeholder="Your email address" autoComplete="off" />
+                            <input type="Email address" name="q" className="py-4 text-sm w-full text-white rounded-md pl-4 focus:outline-none bg-emailbg-1 focus:text-white" placeholder="Your email address" autoComplete="off" />
                             <div className="absolute inset-y-0 right-0 flex items-center pr-2">
                                 <button type="submit" className="p-1 focus:outline-none focus:shadow-outline">
                                     <img src={'/assets/footer/inputIcon.svg'} alt="inputicon" />

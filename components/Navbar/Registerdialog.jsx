@@ -53,7 +53,7 @@ const Register = () => {
         <>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto  sm:pr-0">
                 <div className='hidden md:block'>
-                    <button className="bg-purple hover:bg-purple hover:text-white text-white text-15px font-medium ml-8 py-4 px-5 rounded" onClick={openModal}>
+                    <button className="bg-purple-1 hover:bg-purple-2 hover:text-white text-white text-15px font-medium ml-8 py-4 px-5 rounded" onClick={openModal}>
                         Register
                     </button>
                 </div>
@@ -178,7 +178,7 @@ const Register = () => {
                                                 <div>
                                                     <button
                                                         type="submit"
-                                                        className="group relative flex w-full justify-center rounded-md border border-transparent bg-purple py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                                        className="group relative flex w-full justify-center rounded-md border border-transparent bg-purple-1 py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                                         onClick={handleRegister}
                                                         disabled={creatingUser}
                                                     >
