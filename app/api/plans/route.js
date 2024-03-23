@@ -12,6 +12,7 @@ export async function GET() {
     await dbConnect();
     const session = await getServerSession(authOptions);
     const userID = session?.user?._id;
+    console.log(session?.user?.type)
     const userdata = await User.findById(userID)
     if (userID && userdata.type=="Instructor"){
         const inst = await Instructor.findById(userdata.userInfo).populate({
@@ -26,21 +27,20 @@ export async function GET() {
 }
 
 async function CreateLesson(planinfo,userdata, size){
-    const lesson = new LessonPlan({
+    const lessons = new LessonPlan({
         instructor: planinfo.instructor,
-        student: userdata.userInfo,
+        student: [userdata.userInfo],
         plan: planinfo._id,
         size: size,
         }
     )  
-    const temp = await lesson.save()
+    const temp = await lessons.save()
     const stu = await Student.findById(userdata.userInfo)
-    stu.courses.push(temp._id)
-    const inst = await Instructor.findById(planinfo.instructor)
-    inst.courses.push(inst._id)
+    stu.lessons.push(temp._id)
+    planinfo.lessons.push(temp._id)
     await stu.save()
-    await inst.save()
-    return new Response('Student Enrolled in the batch',{status: 201})
+    await planinfo.save()
+    
 }
 
 export async function POST(req) {
@@ -73,16 +73,17 @@ export async function POST(req) {
     }
     else if (userID && userdata.type=="Student"){
         // to-do balance add & subtract for instructors
-        const planinfo = await Plan.findById(data.planid).populate('c')
+        const planinfo = await Plan.findById(data.planid).populate('lessons')
         if (data.plan_size===1){
             await CreateLesson(planinfo, userdata,1)
+            return new Response('Student Enrolled in 1 mode',{status: 201})
         }else{
             let flag = true
-            for (let i = 0; i < planinfo.courses.length; i++) {
-                if (planinfo.courses[i].size>1 && planinfo.courses[i].student.length<6){
-                    planinfo.courses[i].student.push(userdata.userInfo)
+            for (let i = 0; i < planinfo.lessons.length; i++) {
+                if (planinfo.lessons[i].size>1 && planinfo.lessons[i].student.length<6){
+                    planinfo.lessons[i].student.push(userdata.userInfo)
                     const stu = await Student.findById(userdata.userInfo)
-                    stu.courses.push(temp._id)
+                    stu.lessons.push(temp._id)
                     await stu.save()
                     await planinfo.save()
                     flag = false
@@ -91,6 +92,7 @@ export async function POST(req) {
             }       
             if (flag){
                 await CreateLesson(planinfo, userdata, 5)
+                return new Response('Student Enrolled in the batch',{status: 201})
             }
         }
         

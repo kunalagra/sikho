@@ -3,32 +3,39 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import axios from 'axios';
-import { set } from 'mongoose';
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+
 const Register = () => {
-    let [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [usertype, setUserType] = useState('select user type')
     const [creatingUser, setCreatingUser] = useState(false)
-    const [userCreated, setUserCreated] = useState(false)
     const [error, setError] = useState(false)
 
+    const closeModal = () => {
+        setIsOpen(false)
+    }
+
+    const openModal = () => {
+        setIsOpen(true)
+    }
     const handleRegister = async (e) => {
         e.preventDefault()
 
         setCreatingUser(true);
         setError(false);
-        setUserCreated(false);
 
         axios.post('/api/register', {
             email: email,
             password: password,
             type: usertype
-        }).then((res) => {
+        }).then(async (res) => {
             if (res.status === 200) {
-                setUserCreated(true);
+                await signIn('credentials', { email, password, callbackUrl: '/' });
+                closeModal();
             } else {
                 setError(true);
             }
@@ -41,13 +48,6 @@ const Register = () => {
     }
 
 
-    const closeModal = () => {
-        setIsOpen(false)
-    }
-
-    const openModal = () => {
-        setIsOpen(true)
-    }
 
     return (
         <>
@@ -188,6 +188,11 @@ const Register = () => {
                                                         Register Now
                                                     </button>
                                                 </div>
+                                                {creatingUser && (
+                                                    <div className="mt-4 text-center">
+                                                        <span className="text-gray-500">Creating your account...</span>
+                                                    </div>
+                                                )}
                                             </form>
                                         </div>
                                     </div>

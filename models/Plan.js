@@ -6,7 +6,6 @@ const PlanSchema = new Schema({
       required: true,
     },
     instructor: { type: Schema.Types.ObjectId, ref: 'Instructor'},
-    courses: [{ type: Schema.Types.ObjectId, ref: 'LessonPlan',default: [] }],
     rating: {type: Number, default: 4.0},
     price: {type: Number, default: 200},
     domain: {type: String, required: true},
@@ -15,7 +14,7 @@ const PlanSchema = new Schema({
     time: {type: Number, required: true},
     thumbnail: {type: String},
     resources: [{ type: String }],
-    lesson: [{type: Schema.Types.ObjectId, ref: 'LessonPlan'}],
+    lessons: [{type: Schema.Types.ObjectId, ref: 'LessonPlan',default: [] }],
     modules: [
       {
         id: {
