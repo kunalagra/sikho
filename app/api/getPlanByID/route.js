@@ -14,7 +14,8 @@ export async function GET(req) {
     const searchParams = req.nextUrl.searchParams
     const query = searchParams.get('id')
     // console.log(query)
-    const plan = await Plan.findOne({_id: query}).populate('instructor')
+    const plan = await Plan.findOne({_id: query}).populate(
+        ['instructor','lessons'])
     // console.log(plan)
     return new Response(JSON.stringify(plan),{status: 200})
 }

@@ -55,6 +55,8 @@ export default function CheckoutForm({ clientSecret }) {
       }
   })
   .then(res => {
+    localStorage.removeItem('id')
+    localStorage.removeItem('plan')
     console.log(res)
   })
   }

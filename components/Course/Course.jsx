@@ -4,7 +4,7 @@ import { Accordion, AccordionSummary, AccordionDetails, Dialog, DialogTitle, Dia
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
 import Plans from '../Plans/Plans';
 import { useSession } from 'next-auth/react';
@@ -25,6 +25,21 @@ const Course = ({ course }) => {
   const [moduleNoEdit, setModuleNoEdit] = useState(0);
   const [lessonNoEdit, setLessonNoEdit] = useState(0);
   const [modules, setModules] = useState(course.modules);
+  const [isEnrolled, setIsEnrolled] = useState(false);
+
+  useEffect(() => {
+
+    const fetchdata = async () => {
+      const res = await fetch(`/api/lessonPlans`);
+      const data = await res.json();
+      data.map(item => {
+        if (item.plan._id === course._id) {
+          setIsEnrolled(true);
+        }
+      })
+    }
+    fetchdata();
+  }, [ course._id ]);
 
   const handleUpdate = (module) => {
     fetch(`/api/plans`, {
@@ -126,10 +141,10 @@ const Course = ({ course }) => {
           </div>
         </div>
         <div className='flex items-center gap-3'>
-          <button className='py-2 px-6 rounded-lg border text-purple-1 hover:text-white border-purple-1 hover:bg-purple-1 transition-all'>
+        {!isEnrolled && <button className='py-2 px-6 rounded-lg border text-purple-1 hover:text-white border-purple-1 hover:bg-purple-1 transition-all'>
             Add to Cart
-          </button>
-          <Link href='/checkout'>
+          </button>}
+          {/* <Link href='/checkout'>
             <button className='py-2 px-6 rounded-lg text-white bg-purple-1 active:bg-purple-2'
               onClick={() => {
                 navigate.push('/checkout')
@@ -137,7 +152,7 @@ const Course = ({ course }) => {
             >
               Buy now
             </button>
-          </Link>
+          </Link> */}
         </div>
       </div>
 
@@ -149,7 +164,7 @@ const Course = ({ course }) => {
         <ul className='list-disc'><li className='ml-5'>In this course, you'll have the opportunity to learn from an experienced instructor who brings a wealth of expertise and practical knowledge to the table.</li> <li className='ml-5'>With a proven track record in the field of software development, I am dedicated to providing clear, concise, and engaging instruction that empowers students to succeed.</li> <li className='ml-5'>From building robust applications to implementing efficient coding practices, I'll guide you through the intricacies of software development with ease.</li> <li className='ml-5'>Through comprehensive explanations, hands-on demonstrations, and real-world examples, I strive to make complex software development concepts accessible and understandable for learners of all levels.</li> <li className='ml-5'>By choosing this course, you'll benefit from my passion for teaching and commitment to helping you achieve your goals in mastering software development.</li></ul>
       </div>
       
-      <div className='flex flex-col gap-4 px-4 py-8 shadow-lg bg-white rounded-lg'>
+      {isEnrolled && <div className='flex flex-col gap-4 px-4 py-8 shadow-lg bg-white rounded-lg'>
         <h3 className='h3-bold'>
           Modules
         </h3>
@@ -207,26 +222,26 @@ const Course = ({ course }) => {
                     </p>
                   </div>
                 ))}
-                <button className='bg-green-500 active:bg-green-500 text-white py-1.5 px-3 rounded-lg mt-4' onClick={() => {
+                {isUser == "Instructor" && <button className='bg-green-500 active:bg-green-500 text-white py-1.5 px-3 rounded-lg mt-4' onClick={() => {
                   setModules([...modules.slice(0,index), {...modules[index], lessons: [...modules[index].lessons, { title: 'Title', content: 'Description' }]}, ...modules.slice(index+1)]);
                 }}>
                   Add Lesson
-                </button>
+                </button>}
               </AccordionDetails>
             </Accordion>
           ))}
-          <button className='bg-green-500 active:bg-green-500 text-white py-1.5 px-3 rounded-lg mt-4' onClick={()=> {
+          {isUser == "Instructor" && <button className='bg-green-500 active:bg-green-500 text-white py-1.5 px-3 rounded-lg mt-4' onClick={()=> {
             setModules([...modules, { title: 'Title', description: 'Description', lessons: [] }]);
           }}>
             Add Module
-          </button>
+          </button>}
         </div>
-      </div>
+      </div>}
 
-      <div id="buy-course" className='my-6'>
+      {!isEnrolled && <div id="buy-course" className='my-6'>
         <h2 className='h2-bold text-center mb-4'>Pricings</h2>
         <Plans Price={course.price} id={course._id} isUser={isUser} />
-      </div>
+      </div>}
     </div>
   )
 }
