@@ -16,6 +16,7 @@ const Banner = () => {
         'Machine Learning': ['Python', 'R', 'All'],
         'Devops': ['Python', 'All'],
         'Software Development': ['Python', 'All'],
+        'All': ['All']
     }
 
     const topics = Object.keys(techs);
