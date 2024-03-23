@@ -4,11 +4,8 @@ const LessonPlanSchema = new Schema({
     instructor: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     student: [{ type: Schema.Types.ObjectId, ref: 'User', required: true }],
     plan: { type: Schema.Types.ObjectId, ref: 'Plan', required: true },
-    objectives: [{ type: String }],
-    topics: [{ type: String }],
-    resources: [{ type: String }],
     schedule: {
-      startDate: { type: Date, required: true },
+      startDate: { type: Date },
       endDate: { type: Date },
       frequency: { type: String },
     },
