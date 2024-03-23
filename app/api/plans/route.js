@@ -15,16 +15,11 @@ export async function GET() {
         const inst = await Instructor.findById(userdata.userInfo).populate({
             path: 'plans'
         })
-        const temp = inst.plans
-        return new Response(JSON.stringify(data),{status: 200})
+        return new Response(JSON.stringify(inst.plans),{status: 200})
     }
     else{
-        const student = await Student.findById(userdata.userInfo).populate({
-            path: 'courses',
-            populate: 'plan'
-        })
-        return new Response(JSON.stringify(inst.plans),{status: 200})
-
+        const data = await Plan.find().populate('instructor')
+        return new Response(JSON.stringify(data),{status: 200})    
     } 
 }
 
