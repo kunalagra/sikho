@@ -70,7 +70,6 @@ export async function POST(req) {
             const domain = formData.get('domain')
             const totalclasses = formData.get('totalclasses')
             const time = formData.get('time')
-
             const file = formData.get('thumbnail')
             if (!file) {
                 return Response.json({ error: "No files received." }, { status: 400 });
