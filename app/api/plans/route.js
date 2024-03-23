@@ -7,6 +7,7 @@ import {LessonPlan} from '@/models/LessonPlan.js'
 import path from "path";
 import { writeFile } from "fs/promises";
 const { v4: uuidv4 } = require('uuid');
+import { headers } from 'next/headers'
 
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]/route.js"
@@ -51,9 +52,11 @@ export async function POST(req) {
     const userID = session?.user?._id;
     const userdata = await User.findById(userID)
     if (userID && userdata.type=="Instructor"){
-        // const isJSON = req.headers['content-type'] && req.headers['content-type'].includes('application/json');
-        const isJSON = false
+        const headersList = headers()
+        const headtype = headersList.get('content-type')
+        const isJSON = headtype === "application/json"
         if (isJSON){
+            const data = await req.json() 
             let query = {_id: data.id}
             let options = {new: true};
             await Plan.findOneAndUpdate(query, data, options);
@@ -61,7 +64,6 @@ export async function POST(req) {
         }
         else{
             const formData = await req.formData()
-            console.log(formData)
             const title = formData.get('title')
             const price = formData.get('price')
             const description = formData.get('description')
