@@ -126,6 +126,8 @@ function Plans({Price, id, isUser}) {
                             onClick={() => {
                                 navigate.push('/checkout')
                                 localStorage.setItem("price", regularPrice)
+                                localStorage.setItem("plan", 1)
+                                localStorage.setItem("id", id)
                             }
                         }
                         >
@@ -199,6 +201,8 @@ function Plans({Price, id, isUser}) {
                         onClick={() => {
                             navigate.push('/checkout')
                             localStorage.setItem("price", regularPrice)
+                            localStorage.setItem("plan", 5)
+                            localStorage.setItem("id", id)
                         }
                     }
                         >

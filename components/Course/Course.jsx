@@ -225,7 +225,7 @@ const Course = ({ course }) => {
 
       <div id="buy-course" className='my-6'>
         <h2 className='h2-bold text-center mb-4'>Pricings</h2>
-        <Plans Price={course.price} />
+        <Plans Price={course.price} id={course._id} isUser={isUser} />
       </div>
     </div>
   )
