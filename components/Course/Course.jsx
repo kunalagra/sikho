@@ -20,7 +20,6 @@ const Course = ({ course }) => {
   const [modules, setModules] = useState(course.modules);
 
   const handleUpdate = (module) => {
-    // console.log(module.modules);
     fetch(`/api/plans`, {
       method: 'POST',
       body: JSON.stringify(module),
@@ -106,7 +105,10 @@ const Course = ({ course }) => {
           {course.description}
         </p>
         <div className='flex gap-4 items-center'>
-          <p>{course.rating} stars</p>
+          <div className="flex items-center gap-1">
+            <p>{course.rating} </p>
+            <img src={'/assets/courses/Star.svg'} alt="star" />
+          </div>
           <p className='underline'>230 reviews</p>
           <div className='bg-slate-300 py-1 px-2 rounded-lg'>
             <p>Enrolled : {course.lessons.length}</p>
