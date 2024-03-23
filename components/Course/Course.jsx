@@ -6,43 +6,18 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React, { useState } from 'react'
 import Link from 'next/link';
+import Plans from '../Plans/Plans';
 
-const Course = ({ }) => {
+const Course = ({ course }) => {
 
   const isUser = false;
-
-    const course = {
-        "title": "HTML, CSS, Javascript & React Development",
-        "price": 250,
-        "domain": "Programming",
-        "description": "This course will walk you through HTML, CSS & JS development.",
-        "totalclasses": 12,
-        "time": 60,
-        "thumbnail": "/assets/courses/1_reactandhtml.jpg",
-        "author": "James Bond",
-        "modules": [
-          {
-            "id": 1,
-            "title": "Module 1",
-            "description": "Description of Module 1",
-            "lessons": [
-              {
-                "title": "Lesson 1",
-                "content": "Content of Lesson 1"
-              },
-              {
-                "title": "Lesson 2",
-                "content": "Content of Lesson 2"
-              }
-            ]
-          }
-        ]
-      }
-
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [renameValue, setRenameValue] = useState('');
+  const [descValue, setDescValue] = useState('');
   const [isModuleNameEdit, setIsModuleNameEdit] = useState(true);
-  const [itemNoEdit, setItemNoEdit] = useState(true);
+  const [moduleNoEdit, setModuleNoEdit] = useState(0);
+  const [lessonNoEdit, setLessonNoEdit] = useState(0);
+  const [modules, setModules] = useState(course.modules);
 
   return (
     <div className='w-full flex flex-col gap-8'>
@@ -55,11 +30,35 @@ const Course = ({ }) => {
               type="text"
               required
               className="mb-3 py-3 relative block w-full appearance-none rounded-md border border-gray-300 px-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 "
-              placeholder={`${isModuleNameEdit? 'Module' : 'Lesson'} ${itemNoEdit+1} Title`}
+              placeholder={isModuleNameEdit? `Module ${moduleNoEdit+1} Title` : `Lesson ${lessonNoEdit+1} Title`}
               value={renameValue}
               onChange={(e) => setRenameValue(e.target.value)}
             />
-            <button className="w-full py-3 text-white bg-blue-500 rounded-lg" onClick={() => {}}>
+            <textarea
+              type="text"
+              required
+              rows={5}
+              className="resize-none mb-3 py-3 relative block w-full appearance-none rounded-md border border-gray-300 px-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 "
+              placeholder={isModuleNameEdit? `Module ${moduleNoEdit+1} Title` : `Lesson ${lessonNoEdit+1} Title`}
+              value={descValue}
+              onChange={(e) => setDescValue(e.target.value)}
+            />
+            <button className="w-full py-3 text-white bg-blue-500 rounded-lg" onClick={() => {
+              if (renameValue!=='') {
+                const i = moduleNoEdit;
+                const j = lessonNoEdit;
+                if (isModuleNameEdit)
+                  setModules([...modules.slice(0,i),{...modules[i], title: renameValue, description: descValue} ,...modules.slice(i+1)]);
+                else {
+                  setModules(
+                    [...modules.slice(0,i),
+                      {...modules[i], lessons: [...modules[i].lessons.slice(0,j),{...modules[i].lessons[j], title: renameValue, content: descValue} ,...modules[i].lessons.slice(j+1)]},
+                      ...modules.slice(i+1)
+                    ]);
+                }
+                setIsEditModalOpen(false);
+              }
+            }}>
               Rename
             </button>
           </div>
@@ -117,7 +116,7 @@ const Course = ({ }) => {
           Modules
         </h3>
         <div>
-          {course.modules.map((item, index) => (
+          {modules.map((item, index) => (
             <Accordion key={index}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -126,12 +125,16 @@ const Course = ({ }) => {
                   <p className='text-lg font-semibold'>Module {index+1}: {item.title}</p>
                   <div className='flex gap-2'>
                     {!isUser && 
-                      <button onClick={() => {setItemNoEdit(index); setRenameValue(item.title); setIsModuleNameEdit(true); setIsEditModalOpen(true);}}>
+                      <button onClick={() => {setModuleNoEdit(index); setRenameValue(item.title); setDescValue(item.description); setIsModuleNameEdit(true); setIsEditModalOpen(true);}}>
                         <EditIcon className='bg-blue-500 active:bg-blue-600 rounded-lg p-1 cursor-pointer text-white' 
                         />
                       </button>
                     }
-                    {!isUser && <DeleteIcon className='bg-red-500 active:bg-red-600 rounded-lg p-1 cursor-pointer text-white' />}
+                    {!isUser && 
+                      <button onClick={() => {if (confirm(`Delete Module ${index+1}?`)) setModules([...modules.slice(0,index), ...modules.slice(index+1)])}}>
+                        <DeleteIcon className='bg-red-500 active:bg-red-600 rounded-lg p-1 cursor-pointer text-white' /> 
+                      </button>
+                    }
                   </div>
                 </div>
               </AccordionSummary>
@@ -143,12 +146,19 @@ const Course = ({ }) => {
                       <p className='font-bold'>Lesson {ind+1}: {lesson.title}</p>
                       <div className='flex gap-2'>
                         {!isUser && 
-                          <button onClick={() => {setItemNoEdit(ind); setRenameValue(lesson.title); setIsModuleNameEdit(false); setIsEditModalOpen(true);}}>
+                          <button onClick={() => {setModuleNoEdit(index); setLessonNoEdit(ind); setRenameValue(lesson.title); setDescValue(lesson.content); setIsModuleNameEdit(false); setIsEditModalOpen(true);}}>
                             <EditIcon className='bg-blue-500 active:bg-blue-600 rounded-lg p-1 cursor-pointer text-white' 
                             />
                           </button>
                         }
-                        {!isUser && <DeleteIcon className='bg-red-500 active:bg-red-600 rounded-lg p-1 cursor-pointer text-white' />}
+                        {!isUser && 
+                          <button onClick={() => {
+                            if (confirm(`Delete Lesson ${ind+1}?`)) 
+                              setModules([...modules.slice(0,index), {...modules[index], lessons: [...modules[index].lessons.slice(0,ind), ...modules[index].lessons.slice(ind+1)]}, ...modules.slice(index+1)])
+                          }}>
+                            <DeleteIcon className='bg-red-500 active:bg-red-600 rounded-lg p-1 cursor-pointer text-white' />
+                          </button>
+                        }
                       </div>
                     </div>
                     <p>
@@ -156,16 +166,24 @@ const Course = ({ }) => {
                     </p>
                   </div>
                 ))}
-                <button className='bg-green-500 active:bg-green-500 text-white py-1.5 px-3 rounded-lg mt-4'>
+                <button className='bg-green-500 active:bg-green-500 text-white py-1.5 px-3 rounded-lg mt-4' onClick={() => {
+                  setModules([...modules.slice(0,index), {...modules[index], lessons: [...modules[index].lessons, { title: 'Title', content: 'Description' }]}, ...modules.slice(index+1)]);
+                }}>
                   Add Lesson
                 </button>
               </AccordionDetails>
             </Accordion>
           ))}
-          <button className='bg-green-500 active:bg-green-500 text-white py-1.5 px-3 rounded-lg mt-4'>
+          <button className='bg-green-500 active:bg-green-500 text-white py-1.5 px-3 rounded-lg mt-4' onClick={()=> {
+            setModules([...modules, { title: 'Title', description: 'Description', lessons: [] }]);
+          }}>
             Add Module
           </button>
         </div>
+      </div>
+
+      <div>
+        <Plans />
       </div>
     </div>
   )
