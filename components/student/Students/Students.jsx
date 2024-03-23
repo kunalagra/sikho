@@ -75,13 +75,13 @@ export default class MultipleItems extends Component {
 
 
         return (
-            <div id="testimonial-section" className='bg-bgpink'>
+            <div id="testimonial-section" className='bg-pink-1'>
                 <div className="mx-auto max-w-2xl px-4 pt-16 pb-64 sm:pt-32 lg:max-w-7xl lg:px-8">
 
                     <div className='sm:flex justify-between items-center pb-6'>
                         <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-gray-900 my-4">What Our Happy <br /> Students Says</h2>
                         <div>
-                            <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrey hover:border-transparent rounded">
+                            <button className="bg-transparent hover:bg-purple-1 text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrey hover:border-transparent rounded">
                                 Give Your Review
                             </button>
                         </div>

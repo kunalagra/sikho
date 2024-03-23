@@ -29,7 +29,7 @@ const NavContent = ({ session }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <Disclosure as="nav" className="bg-lightpink NavContent">
+        <Disclosure as="nav" className="bg-lightpink-1 NavContent">
             <>
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="relative flex h-20 items-center justify-between">

@@ -8,19 +8,34 @@ import Category from '../components/student/Categories/Category';
 import Instructor from '../components/Instructor/Instructor';
 import Plans from '../components/Plans/Plans';
 
+import IBanner from '@/components/instructor/IBanner';
+import IDashboard from '@/components/instructor/IDashboard';
+import ICourses from '@/components/instructor/ICourses';
 
 export default function Home() {
+
+  const isUser = true;
+
+  if (isUser) {
+    return (
+      <main>
+        <Banner />
+        <Companies />
+        <Tabs />
+        <Mentor />
+        <Students />
+        <Newsletter />
+      </main>
+    )
+  }
+  
   return (
-    <main>
-      <Banner />
-      <Companies />
-      <Category/>
-      <Tabs />
-      <Mentor />
-      <Instructor/>
-      <Students />
-      <Newsletter />
- 
+    <main className='w-full'>
+      <div className='flex flex-col'>
+        <IBanner />
+        <IDashboard />
+        <ICourses />
+      </div>
     </main>
   )
 }
