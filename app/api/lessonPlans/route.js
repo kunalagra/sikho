@@ -15,10 +15,12 @@ export async function GET() {
     const userdata = await User.findById(userID)
     if (userID && userdata.type=="Instructor"){
         const lesson = await Instructor.findById(userdata.userInfo).populate({
-            path: 'courses',
-            populate: ['plan','student','assignments']
-        })
-        return new Response(JSON.stringify(lesson.courses),{status: 200})
+            path: 'plans',
+            populate:{
+                path: 'courses',
+                populate: ['plan','student','assignments']
+        }})
+        return new Response(JSON.stringify(lesson.plans),{status: 200})
 
     }
     else{

@@ -10,7 +10,6 @@ const InstructorSchema = new Schema({
   phone: {type: String},
   rating: {type: Number, default: 50},
   plans: [{ type: Schema.Types.ObjectId, ref: 'Plan',default: [] }],
-  courses: [{ type: Schema.Types.ObjectId, ref: 'LessonPlan',default: [] }],
 
   
 }, {timestamps: true});
