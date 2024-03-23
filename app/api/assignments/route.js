@@ -33,8 +33,8 @@ export async function GET(req) {
           
               return { ...lessonPlan, submissions: filteredSubmissions };
              });
-
-            return new Response(JSON.stringify(filteredLessonPlans._doc),{status: 200}) 
+             const data = filteredLessonPlans.map(item => item._doc);
+            return new Response(JSON.stringify(data),{status: 200}) 
           }
           else if (session?.user?.type==='Instructor'){
             return new Response(JSON.stringify(lessonplans),{status: 200}) 
@@ -78,13 +78,15 @@ export async function POST(req) {
 
   }
   else if (userID && userdata.type=="Student"){
-      const assigments = await Assignment.findById(data.aid)
+      const assignments = await Assignment.findById(data.aid)
       let solution = {
-        student: userdata._id,
+        student: userdata.userInfo,
         solution: data.solution, 
       }
-      assigments.submissions.push(solution)
-      await assigments.save()
+      // console.log(data);
+      // console.log(assignments);
+      assignments.submissions.push(solution)
+      await assignments.save()
 
       return new Response('Assignment Submitted',{status: 201})
             

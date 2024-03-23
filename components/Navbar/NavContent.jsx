@@ -81,6 +81,12 @@ const NavContent = ({ session }) => {
                         {!userID && (<Registerdialog />)}
 
                         {userID && (
+                            <Link href='/my-classes' className='mr-3 underline'>
+                                My Classes
+                            </Link>
+                        )}
+
+                        {userID && (
                             <button
                                 onClick={() => signOut()}
                                 className="text-15px font-medium text-purple hover:text-purple px-4 py-2 rounded-md border border-purple"
