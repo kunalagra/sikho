@@ -42,7 +42,7 @@ module.exports = {
         '465': '465px',
       },
       fontFamily: {
-        inter: ['Inter', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
 
       },
     },

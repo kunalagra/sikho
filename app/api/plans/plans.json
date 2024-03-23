@@ -6,7 +6,8 @@
     "description": "This course will walk you through HTML, CSS & JS development.",
     "totalclasses": 12,
     "time": 60,
-    "thumbnail": "public/assets/courses/1_reactandhtml.jpg",
+    "thumbnail": "/assets/courses/1_reactandhtml.jpg",
+    "author": "James Bond",
     "modules": [
       {
         "id": 1,
@@ -48,7 +49,8 @@
     "description": "This course will teach you the backend development with project buliding will give a good hands on experience on nodejs.",
     "totalclasses": 22,
     "time": 60,
-    "thumbnail": "public/assets/courses/2_nodebackend.jpg",
+    "thumbnail": "/assets/courses/2_nodebackend.jpg",
+    "author": "James Bond",
     "modules": [
       {
         "id": 1,
@@ -90,7 +92,8 @@
     "description": "Learn Python like a Professional Start from the basics and go all the way to creating your own applications and games.",
     "totalclasses": 25,
     "time": 60,
-    "thumbnail": "public/assets/courses/3_python.jpg",
+    "thumbnail": "/assets/courses/3_python.jpg",
+    "author": "James Bond",
     "modules": [
       {
         "id": 1,
@@ -132,7 +135,8 @@
     "description": "DSA for Cracking the Coding Interview. Animated Examples for Faster Learning and Deeper Understanding..",
     "totalclasses": 21,
     "time": 120,
-    "thumbnail": "public/assets/courses/4 _dsa_dev.png",
+    "thumbnail": "/assets/courses/4 _dsa_dev.png",
+    "author": "James Bond",
     "modules": [
       {
         "id": 1,
@@ -174,7 +178,8 @@
     "description": "Deep Dive in Core Java programming -Standard Edition. A Practical approach to learn Java. Become a Java Expert",
     "totalclasses": 31,
     "time": 60,
-    "thumbnail": "public/assets/courses/5_java.png",
+    "thumbnail": "/assets/courses/5_java.png",
+    "author": "James Bond",
     "modules": [
       {
         "id": 1,
@@ -216,7 +221,8 @@
     "description": "Master React and Redux. Apply modern design patterns to build apps with React Router, TailwindCSS, Context, and Hooks!.",
     "totalclasses": 27,
     "time": 60,
-    "thumbnail": "/assets/courses/coursesOne.svg",
+    "thumbnail": "assets/courses/coursesOne.svg",
+    "author": "James Bond",
     "modules": [
       {
         "id": 1,
@@ -258,7 +264,8 @@
     "description": "Master Angular  and build awesome, reactive web apps with the successor of Angular.js",
     "totalclasses": 34,
     "time": 30,
-    "thumbnail": "public/assets/courses/7_angular.jpg",
+    "thumbnail": "/assets/courses/7_angular.jpg",
+    "author": "James Bond",
     "modules": [
       {
         "id": 1,
@@ -300,7 +307,8 @@
     "description": "Learn how to use NumPy, Pandas, Seaborn , Matplotlib , Plotly , Scikit-Learn , Machine Learning, Tensorflow , and more!",
     "totalclasses": 32,
     "time": 60,
-    "thumbnail": "public/assets/courses/8_pyfords.jpg",
+    "thumbnail": "/assets/courses/8_pyfords.jpg",
+    "author": "James Bond",
     "modules": [
       {
         "id": 1,
@@ -342,7 +350,8 @@
     "description": "Learn to create Machine Learning Algorithms in Python and R from two Data Science experts. Code templates included..",
     "totalclasses": 40,
     "time": 60,
-    "thumbnail": "public/assets/courses/9_mlwithrandpy.png",
+    "thumbnail": "/assets/courses/9_mlwithrandpy.png",
+    "author": "James Bond",
     "modules": [
       {
         "id": 1,
@@ -384,7 +393,8 @@
     "description": "ChatGPT Plugins + 25 Powerful AI Tools 10x Your Productivity and Creativity | ChatGPT, Generative AI, Prompt Engineering.",
     "totalclasses": 9,
     "time": 60,
-    "thumbnail": "public/assets/courses/10_chatgpt.jpg",
+    "thumbnail": "/assets/courses/10_chatgpt.jpg",
+    "author": "James Bond",
     "modules": [
       {
         "id": 1,
@@ -426,7 +436,8 @@
     "description": "Learn Artificial Intelligence with Python. Create Advanced Artificial Intelligence (AI) Applications with Python.",
     "totalclasses": 20,
     "time": 60,
-    "thumbnail": "public/assets/courses/11_master_ai.jpg",
+    "thumbnail": "/assets/courses/11_master_ai.jpg",
+    "author": "James Bond",
     "modules": [
       {
         "id": 1,
@@ -468,7 +479,8 @@
     "description": "Become an expert at SQL!. Learny all the related terminologies to database",
     "totalclasses": 8,
     "time": 60,
-    "thumbnail": "public/assets/courses/12_complete_sql.jpg",
+    "thumbnail": "/assets/courses/12_complete_sql.jpg",
+    "author": "James Bond",
     "modules": [
       {
         "id": 1,
@@ -510,7 +522,8 @@
     "description": "ChatGPT Plugins + 25 Powerful AI Tools 10x Your Productivity and Creativity | ChatGPT, Generative AI, Prompt Engineering.",
     "totalclasses": 37,
     "time": 60,
-    "thumbnail": "public/assets/courses/13_aws.png",
+    "thumbnail": "/assets/courses/13_aws.png",
+    "author": "James Bond",
     "modules": [
       {
         "id": 1,

@@ -6,23 +6,31 @@ import Students from '../components/student/Students/Students';
 import Newsletter from '../components/student/Newsletter/Newsletter';
 import IBanner from '@/components/instructor/IBanner';
 import IDashboard from '@/components/instructor/IDashboard';
+import ICourses from '@/components/instructor/ICourses';
 
 export default function Home() {
-  // return (
-  //   <main>
-  //     <Banner />
-  //     <Companies />
-  //     <Tabs />
-  //     <Mentor />
-  //     <Students />
-  //     <Newsletter />
-  //   </main>
-  // )
+
+  const isUser = true;
+
+  if (isUser) {
+    return (
+      <main>
+        <Banner />
+        <Companies />
+        <Tabs />
+        <Mentor />
+        <Students />
+        <Newsletter />
+      </main>
+    )
+  }
+  
   return (
     <main className='w-full'>
       <div className='flex flex-col'>
         <IBanner />
         <IDashboard />
+        <ICourses />
       </div>
     </main>
   )
