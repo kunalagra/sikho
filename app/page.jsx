@@ -10,7 +10,7 @@ import ICourses from '@/components/instructor/ICourses';
 
 export default function Home() {
 
-  const isUser = true;
+  const isUser = false;
 
   if (isUser) {
     return (
