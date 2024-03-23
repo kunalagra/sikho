@@ -8,7 +8,7 @@ import { authOptions } from "../auth/[...nextauth]/route.js"
 
 export async function GET() {
     await dbConnect();
-    const data = await Plan.find()
+    const data = await Plan.find().populate('instructor')
     return new Response(JSON.stringify(data),{status: 200})
 
 }

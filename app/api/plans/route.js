@@ -34,19 +34,17 @@ export async function POST(req) {
     const userID = session?.user?._id;
     const userdata = await User.findById(userID)
     if (userID && userdata.type=="Instructor"){
-        // const {_id,title,price, description, domain, totalclasses, time, thumbnail} = await req.json()
-        // const instructor = userID
         const data = await req.json()
-        console.log(data)
-        data.instructor = userID
+        
         if (data._id){
             let query = {_id: data._id}
             let options = {new: true};
-            const plan = await Plan.findOneAndUpdate(query, data, options);
+            await Plan.findOneAndUpdate(query, data, options);
             return new Response('Plan Updated',{status: 201})
 
         }
         else{
+            data.instructor = userdata.userInfo
             const plan = await Plan(
                 data
             )
