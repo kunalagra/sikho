@@ -7,13 +7,29 @@ import Newsletter from '../components/student/Newsletter/Newsletter';
 import IBanner from '@/components/instructor/IBanner';
 import IDashboard from '@/components/instructor/IDashboard';
 import ICourses from '@/components/instructor/ICourses';
+import { authOptions } from './api/auth/[...nextauth]/route';
+import { getServerSession } from 'next-auth';
 
-export default function Home() {
+export default async function Page() {
 
-  const isUser = true;
+  const session = await getServerSession(authOptions);
+  const isUser = session?.user?.type
 
-  if (isUser) {
+  // console.log(session)
+
+  if (isUser === "Instructor") {
     return (
+    <main className='w-full'>
+      <div className='flex flex-col'>
+        <IBanner />
+        <IDashboard />
+        <ICourses />
+      </div>
+    </main>
+    )
+  }
+  
+  return (
       <main>
         <Banner />
         <Companies />
@@ -22,16 +38,5 @@ export default function Home() {
         <Students />
         <Newsletter />
       </main>
-    )
-  }
-  
-  return (
-    <main className='w-full'>
-      <div className='flex flex-col'>
-        <IBanner />
-        <IDashboard />
-        <ICourses />
-      </div>
-    </main>
   )
 }

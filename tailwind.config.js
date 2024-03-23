@@ -31,7 +31,9 @@ module.exports = {
         'emailbg-1': '#6a4c6d',
         'offwhite': ' #FDFDFD',
         'offblack' :'#333333',
-        'red-1' : '#FF605C'
+        'red-1' : '#FF605C',
+        "dark-2" : "#1E1E1E",
+        "dark-1" : "#2A2A2A",
       },
       screens: {
         'xs': '480px',
