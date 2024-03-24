@@ -26,7 +26,7 @@ function formatDateTime(dateTime) {
   return formattedDateTime.replace(/\b\d{1,2}\b/, day + suffix);
 }
 
-const IAssignments = ({ assignments, lessonPlanID }) => {
+const IAssignments = ({ assignments, lessonPlanID, setAssignments }) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [curAss, setCurAss] = useState(null);
@@ -39,20 +39,47 @@ const IAssignments = ({ assignments, lessonPlanID }) => {
 
 
   const handleGradeSubmit = async () => {
-    console.log(assignments[curAss.id-1]);
-    // setIsSubmitting(true);
-    // await fetch(`/api/assignments/`, {
-    //   method: 'POST',
-    //   body: JSON.stringify({
+    // console.log(assignments[curAss.id-1]);
+    // console.log({
     //     ...assignments[curAss.id-1],
-    //     grade: grade
-    //   })
-    // }).then(() => {
-    //   setIsOpen(false);
-    // }).finally(() => {
-    //     setGrade(5);
-    //     setIsSubmitting(false);
-    // });
+    //     submissions: [
+    //         {
+    //             ...assignments[curAss.id-1].submissions[0],
+    //             grade: grade
+    //         }
+    //     ]
+    //   });
+    setIsSubmitting(true);
+    await fetch(`/api/assignments/`, {
+      method: 'POST',
+      body: JSON.stringify({
+        ...assignments[curAss.id-1],
+        submissions: [
+            {
+                ...assignments[curAss.id-1].submissions[0],
+                grading: grade
+            }
+        ]
+      })
+    }).then(() => {
+      setIsOpen(false);
+      setAssignments([
+        ...assignments.slice(0, curAss.id-1),
+        {
+        ...assignments[curAss.id-1],
+        submissions: [
+            {
+                ...assignments[curAss.id-1].submissions[0],
+                grading: grade
+            }
+        ]
+        },
+        ...assignments.slice(curAss.id),
+      ])
+    }).finally(() => {
+        setGrade(5);
+        setIsSubmitting(false);
+    }); 
   }
 
   const handleSubmit = async () => {
@@ -135,7 +162,7 @@ const IAssignments = ({ assignments, lessonPlanID }) => {
               onClick={handleGradeSubmit}
               disabled={isSubmitting}
             >
-              {isSubmitting? 'Submitting...' :  'Submit Answer'}
+              {isSubmitting? 'Submitting...' :  'Submit Grade'}
             </button>
           </DialogContent>
         </div>
@@ -152,7 +179,10 @@ const IAssignments = ({ assignments, lessonPlanID }) => {
                     <h3 className='h3-bold'>Assignment {index+1}: <span className='font-normal text-md'>{ass.title}</span></h3>
                     <p className=''>({ass.description})</p>
                   </div>
-                  {ass.submissions?.length===0? <p>Deadline: {deadlineFormat(new Date(ass.end))}</p> : <p className='text-green-500'>SUBMITTED</p>}
+                  <div className='flex justify-between items-center'>
+                    {ass.submissions?.length===0? <p>Deadline: {deadlineFormat(new Date(ass.end))}</p> : <p className='text-green-500'>SUBMITTED</p>}
+                    {ass.submissions?.length > 0 && ass.submissions[0].grading && <p className='text-orange-500'>GRADED: {ass.submissions[0].grading}/10</p>}
+                  </div>
                 </div>
                 </AccordionSummary>
               <AccordionDetails className='bg-slate-100'>
@@ -164,6 +194,7 @@ const IAssignments = ({ assignments, lessonPlanID }) => {
                         onClick={() => {
                         setCurAss({ id: index+1, title: ass.title, description: ass.description });
                         setIsOpen(true);
+                        setGrade(ass.submissions[0].grading? ass.submissions[0].grading : 5 );
                         }}
                     >
                         Grade

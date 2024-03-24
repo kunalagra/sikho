@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Close, ArrowLeft } from "@mui/icons-material";
 import IAssignments from "./IAssignments";
-// import Assignments from "./Assignments";
 
 const ILessonPlans = () => {
   const [plans, setPlans] = useState([]);
@@ -17,7 +16,6 @@ const ILessonPlans = () => {
     const res = await fetch("/api/lessonPlans");
     const data = await res.json();
     setPlans(data);
-    console.log(data);
   };
 
   useEffect(() => {
@@ -130,7 +128,7 @@ const ILessonPlans = () => {
                   <Close className="text-gray-500" />
                 </button>
               </div>
-              <IAssignments assignments={assignments} lessonPlanID={lessonPlanID} />
+              <IAssignments assignments={assignments} lessonPlanID={lessonPlanID} setAssignments={setAssignments} />
             </div>
           )}
         </div>

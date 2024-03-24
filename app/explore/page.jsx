@@ -1,5 +1,6 @@
 "use client";
 
+import Filters from "@/components/Filters/Filters";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -8,39 +9,65 @@ const page = () => {
   const domain = searchParams.get("domain")? searchParams.get("domain").split("-").join(" ") : "";
   const tech = searchParams.get("tech")? searchParams.get("tech").split("-").join(" ") : "";
     const keyword = searchParams.get("keyword")? searchParams.get("keyword").split("-").join(" ") : "";
+    const filterkey = searchParams.get("filterkey");
+    const filtervalue = searchParams.get("filtervalue");
   const [courses, setCourses] = useState([]);
   const router = useRouter();
+
+  // searchParams.set('')
 
   const fetchCourses = async () => {
     const res = await fetch("/api/plans");
     const data = await res.json();
+    let finalData = [];
     if(keyword){
-      setCourses(data.filter(course => {
+      finalData = data.filter(course => {
         return course.title.toLowerCase().includes(keyword) || course.domain.toLowerCase().includes(keyword);
-      }));
+      });
     } else {
       if (domain) {
-        setCourses(data.filter(course => {
+        finalData = data.filter(course => {
           return course.domain.toLowerCase()===domain
-        }));
+        });
       } else {
-        setCourses(data);
+        finalData = data;
       }
     }
+
+    if (filterkey==='price') {
+      if (filtervalue==='low-to-high') {
+        finalData = finalData.toSorted((a, b) => {
+          console.log(a.price, b.price);
+          return a.price - b.price
+        })
+      } else if (filtervalue==='high-to-low') {
+        finalData = finalData.toSorted((a, b) => b.price - a.price)
+      }
+    }
+    else if (filterkey==='rating') {
+      if (filtervalue==='high-to-low') {
+        finalData.toSorted((a, b) => b.rating - a.rating)
+      } else if (filtervalue==='low-to-high') {
+        finalData.toSorted((a, b) => a.rating - b.rating)
+      }
+    }
+
+    setCourses(finalData);
   };
 
   useEffect(() => {
     fetchCourses();
-  }, []);
+  }, [searchParams]);
 
   return (
     <div className="w-full bg-lightpink-1">
       <div className="max-w-7xl py-16 px-2 mx-auto">
         <h2 className="h2-bold mb-2 text-center">Explore Courses</h2>
-        <p className="mb-3 text-center">
+        {/* <p className="mb-3 text-center"> */}
           {/* for '{domain} */}
           {/* {tech ? " ("+tech+")" : ""}' */}
-        </p>
+        {/* </p> */}
+        <Filters mydomain={domain} mytech={tech} mykeyword={keyword}  />
 
         <div className="min-[50vh] flex gap-5 flex-wrap justify-center">
           {courses.map((course, index) => (
