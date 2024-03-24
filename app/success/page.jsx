@@ -8,12 +8,14 @@ const SuccessPage = () => {
         navigate.push('/');
     }, 5000);
 
-
     return (
-        <div className="flex justify-center items-center h-screen flex-col">
-            <h1 className="text-4xl font-bold text-black">Thank you for your purchase!</h1> 
-            <h2 className="text-2xl font-bold text-black">Redirecting to home page...</h2>
+        <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100">
+        <div className="bg-white p-8 rounded-lg shadow-lg">
+          <h1 className="text-3xl font-semibold text-green-600 mb-4">Payment Successful!</h1>
+          <p className="text-lg text-gray-800">Thank you for your purchase. Your order has been successfully processed.</p>
+            <p className="text-lg text-gray-800 mt-4">You will be redirected to the home page in 5 seconds.</p>
         </div>
+      </div>
         
     );
     }
