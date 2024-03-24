@@ -63,13 +63,6 @@ const footer = () => {
 
                 </div>
             </div>
-
-            {/* All Rights Reserved */}
-
-            <div className='pb-24 px-4'>
-                <h3 className='text-center text-offwhite'>@2023 - All Rights Reserved by <Link href="https://adminmart.com/" target="_blank"> Adminmart.com</Link></h3>
-            </div>
-
         </div>
     )
 }

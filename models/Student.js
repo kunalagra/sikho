@@ -14,7 +14,8 @@ const StudentSchema = new Schema({
   rating: {type: Number, default: 50},
   assigned: [{ type: Schema.Types.ObjectId, ref: 'Queue', default: [],  }],
   assignedTime: [{ type: Date,  default: [],  }],
-  amount: {type: Number, default: 0}
+  amount: {type: Number, default: 0},
+  schedules: [{type: Schema.Types.ObjectId, ref: 'Schedule', default: [],  }]
 }, {timestamps: true});
 
 export const Student = models?.Student || model('Student', StudentSchema);
