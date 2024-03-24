@@ -115,29 +115,29 @@ const Course = ({ course }) => {
       <div className='flex flex-col gap-4'>
         <div className=''>
           <img
-            src={course.thumbnail}
-            alt={course.title}
+            src={course?.thumbnail}
+            alt={course?.title}
             className='w-full h-[400px] object-cover'
           />
         </div>
         <h2 className='h1-bold'>
-          {course.title}
+          {course?.title}
         </h2>
         <p className='text-gray-600'>
-          {course.description}
+          {course?.description}
         </p>
         <div className='flex gap-4 items-center'>
           <div className="flex items-center gap-1">
-            <p>{course.rating} </p>
+            <p>{course?.rating} </p>
             <img src={'/assets/courses/Star.svg'} alt="star" />
           </div>
           <p className='underline'>230 reviews</p>
           <div className='bg-slate-300 py-1 px-2 rounded-lg'>
-            <p>Enrolled : {course.lessons.length}</p>
+            <p>Enrolled : {course?.lessons?.length}</p>
           </div>
           <p>|</p>
           <div>
-            <p>By {course.instructor.name}</p>
+            <p>By {course?.instructor?.name}</p>
           </div>
         </div>
         <div className='flex items-center gap-3'>

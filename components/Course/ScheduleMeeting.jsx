@@ -20,13 +20,13 @@ const ScheduleMeeting = (props) => {
     {
       "id": 0,
       "start": new Date(2024, 2, 24, 8, 0),
-      "end": new Date(2024, 2, 24, 10, 0),
-      "title": 'Meeting with John'
+      "end": new Date(2024, 2, 24, 9, 0),
+      "title": 'Meeting with Kunal'
     },
     {
       "id": 1,
-      "start": new Date(2024, 2, 24, 5, 0),
-      "end": new Date(2024, 2, 24, 10, 0),
+      "start": new Date(2024, 2, 24, 9, 0),
+      "end": new Date(2024, 2, 24, 11, 0),
       "title": 'Meeting with John'
     },
     {
