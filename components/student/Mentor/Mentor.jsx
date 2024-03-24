@@ -2,19 +2,19 @@
 const products = [
     {
         id: 1,
-        name: 'Senior UX Designer',
+        name: 'Senior Software Engineer at Media.NET',
         href: '#',
         imageSrc: '/assets/mentor/boy1.svg',
         imageAlt: "Front of men's Basic Tee in black.",
-        color: 'Shoo Thar Mein',
+        color: 'Vinay Singh',
     },
     {
         id: 2,
-        name: 'Photoshop Instructor',
+        name: 'Web Developer - Paytm',
         href: '#',
         imageSrc: '/assets/mentor/boy2.svg',
         imageAlt: "Front of men's Basic Tee in black.",
-        color: 'Cristian Doru Barin',
+        color: 'Deexith Garg',
     },
     {
         id: 3,
@@ -22,7 +22,7 @@ const products = [
         href: '#',
         imageSrc: '/assets/mentor/boy3.svg',
         imageAlt: "Front of men's Basic Tee in black.",
-        color: 'Tanzeel Ur Rehman',
+        color: 'Varun Mahajan',
     },
     {
         id: 4,
@@ -30,7 +30,7 @@ const products = [
         href: '#',
         imageSrc: '/assets/mentor/boy4.svg',
         imageAlt: "Front of men's Basic Tee in black.",
-        color: 'Andrew Williams',
+        color: 'Aditya Desai',
     },
     {
         id: 5,
@@ -38,7 +38,7 @@ const products = [
         href: '#',
         imageSrc: '/assets/mentor/boy5.svg',
         imageAlt: "Front of men's Basic Tee in black.",
-        color: 'Brad Schiff',
+        color: 'Hemant Bahuguna',
     },
     {
         id: 6,
@@ -46,7 +46,7 @@ const products = [
         href: '#',
         imageSrc: '/assets/mentor/girl1.svg',
         imageAlt: "Front of men's Basic Tee in black.",
-        color: 'Daniel Walter Scott',
+        color: 'Sakshi Dubey',
     },
 ]
 
