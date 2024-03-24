@@ -15,7 +15,7 @@ const SearchBar = () => {
     const [value, setValue] = useState('');
 
   return (
-    <div>
+    <div className="bg-lightpink-1">
       <div className="max-w-md mx-auto">
         <label
           htmlFor="default-search"

@@ -65,7 +65,6 @@ const NavContent = ({ session }) => {
                                             {item.name}
                                         </Link>
                                     ))}
-                                    <Contactus />
                                 </div>
                             </div>
                         </div>
