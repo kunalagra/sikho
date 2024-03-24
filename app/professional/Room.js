@@ -212,7 +212,6 @@ export default function Room({ socket }) {
           <CodeEditorWindow
             code={fetchedCode}
             onChange={onChange}
-            language={language.value}
             theme={theme.value}
             fontSize={fontSize.value}
             forProblemsPage={false}

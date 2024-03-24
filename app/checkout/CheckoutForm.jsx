@@ -43,6 +43,24 @@ export default function CheckoutForm({ clientSecret }) {
     });
   }, [stripe, clientSecret]);
 
+  const handleUpdateEnroled = () => {
+    fetch(`/api/plans`, {
+      method: 'POST',
+      body: JSON.stringify({
+          planid : localStorage.getItem('id'),
+          plan_size : localStorage.getItem('plan')
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+  })
+  .then(res => {
+    localStorage.removeItem('id')
+    localStorage.removeItem('plan')
+    console.log(res)
+  })
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -73,6 +91,7 @@ export default function CheckoutForm({ clientSecret }) {
       console.log(error.message)
       setMessage("payment successful! Redirecting to success page...");
       setTimeout(() => {
+        handleUpdateEnroled();
         navigation.push("/success");
       }, 3000);
     }

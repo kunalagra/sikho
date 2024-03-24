@@ -15,8 +15,6 @@ const navigation = [
     { name: 'Home', href: '/', current: true },
     { name: 'Courses', href: '#courses-section', current: false },
     { name: 'Mentors', href: '#mentors-section', current: false },
-    { name: 'Testimonial', href: '#testimonial-section', current: false },
-    { name: 'Join', href: '#join-section', current: false },
 ]
 
 function classNames(...classes) {
@@ -88,7 +86,7 @@ const NavContent = ({ session }) => {
 
                         {userID && (
                             <button
-                                onClick={() => signOut()}
+                                onClick={() => {signOut(), localStorage.clear()}}
                                 className="text-15px font-medium text-purple hover:text-purple px-4 py-2 rounded-md border border-purple"
                             >
                                 Sign Out

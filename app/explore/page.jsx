@@ -5,17 +5,28 @@ import React, { useEffect, useState } from "react";
 
 const page = () => {
   const searchParams = useSearchParams();
-  const domain = searchParams.get("domain").split("-").join(" ");
-  const tech = searchParams.get("tech").split("-").join(" ");
+  const domain = searchParams.get("domain")? searchParams.get("domain").split("-").join(" ") : "";
+  const tech = searchParams.get("tech")? searchParams.get("tech").split("-").join(" ") : "";
+    const keyword = searchParams.get("keyword")? searchParams.get("keyword").split("-").join(" ") : "";
   const [courses, setCourses] = useState([]);
   const router = useRouter();
 
   const fetchCourses = async () => {
     const res = await fetch("/api/plans");
     const data = await res.json();
-    setCourses(data.filter(course => {
-      return course.domain.toLowerCase()===domain
-    }));
+    if(keyword){
+      setCourses(data.filter(course => {
+        return course.title.toLowerCase().includes(keyword) || course.domain.toLowerCase().includes(keyword);
+      }));
+    } else {
+      if (domain) {
+        setCourses(data.filter(course => {
+          return course.domain.toLowerCase()===domain
+        }));
+      } else {
+        setCourses(data);
+      }
+    }
   };
 
   useEffect(() => {
@@ -27,8 +38,8 @@ const page = () => {
       <div className="max-w-7xl py-16 px-2 mx-auto">
         <h2 className="h2-bold mb-2 text-center">Explore Courses</h2>
         <p className="mb-3 text-center">
-          for '{domain}
-          {tech ? " ("+tech+")" : ""}'
+          {/* for '{domain} */}
+          {/* {tech ? " ("+tech+")" : ""}' */}
         </p>
 
         <div className="min-[50vh] flex gap-5 flex-wrap justify-center">

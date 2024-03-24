@@ -1,3 +1,4 @@
+
 import Banner from '../components/student/Banner/Banner';
 import Companies from '../components/student/Companies/Companies';
 import Tabs from '../components/student/Courses/Courses';
@@ -7,12 +8,16 @@ import Newsletter from '../components/student/Newsletter/Newsletter';
 import Category from '../components/student/Categories/Category';
 import Instructor from '../components/Instructor/Instructor';
 import Plans from '../components/Plans/Plans';
+import SearchBar from '@/components/student/Banner/SearchBar';
+import Filters from '@/components/Filters/Filters';
+
 
 import IBanner from '@/components/instructor/IBanner';
 import IDashboard from '@/components/instructor/IDashboard';
 import ICourses from '@/components/instructor/ICourses';
 import { authOptions } from './api/auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';
+
 
 export default async function Page() {
 
@@ -35,7 +40,9 @@ export default async function Page() {
   
   return (
       <main>
+        <SearchBar/>
         <Banner />
+      
         <Companies />
         <Tabs />
         <Mentor />
