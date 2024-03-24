@@ -24,7 +24,7 @@ const page = () => {
       </div>
       <div className="flex justify-center w-full pb-6">
         <button className="bg-blue-500 text-white px-4 py-2 rounded-lg" onClick={() => navigate.push('/professional')}>
-          Join class
+           Join Class
         </button>
       </div>
     </div>
