@@ -46,6 +46,7 @@ export default async function Page() {
         <Companies />
         <Tabs />
         <Mentor />
+        <Instructor/>
         <Students />
         <Newsletter />
       </main>

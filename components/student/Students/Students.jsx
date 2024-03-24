@@ -7,21 +7,21 @@ import React, { Component } from "react";
 const postData = [
     {
         profession: 'UX/UI Designer',
-        name: 'Andrew Williams',
+        name: 'Arjun Kohli',
         imgSrc: '/assets/students/user-1.jpg',
         starimg: '/assets/students/stars.png',
         detail: "I have been a Junior Graphic Designer for more then 10 years. Some things are problem that I had and teach how to solve them. That's why this course is so great!"
     },
     {
         profession: 'UX/UI Designer',
-        name: 'Cristian Doru Barin',
+        name: 'Pooja Bhatt',
         imgSrc: '/assets/students/user-2.jpg',
         starimg: '/assets/students/stars.png',
         detail: "I have been a Junior Graphic Designer for more then 10 years. Some things are problem that I had and teach how to solve them. That's why this course is so great!"
     },
     {
         profession: 'UX/UI Designer',
-        name: 'Tanzeel Ur Rehman',
+        name: 'Neha Sharma',
         imgSrc: '/assets/students/user-3.jpg',
         starimg: '/assets/students/stars.png',
         detail: "I have been a Junior Graphic Designer for more then 10 years. Some things are problem that I had and teach how to solve them. That's why this course is so great!"
