@@ -12,7 +12,8 @@ export async function GET() {
       const session = await getServerSession(authOptions);
       if (session?.user?._id){
         const user = await User.findById(session?.user?._id)
-        const data = await Student.findById(user.userInfo )
+        const Model = user.type ==="Student" ? Student : Instructor 
+        const data = await Model.findById(user.userInfo )
         return new Response(JSON.stringify(data), {status: 200})
       } 
     }catch (error) {  
