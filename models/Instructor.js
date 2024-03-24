@@ -11,6 +11,7 @@ const InstructorSchema = new Schema({
   rating: {type: Number, default: 50},
   plans: [{ type: Schema.Types.ObjectId, ref: 'Plan',default: [] }],
   img: String,
+  schedules: [{type: Schema.Types.ObjectId, ref: 'Schedule', default: [],  }]
   
 }, {timestamps: true});
 
