@@ -4,7 +4,7 @@ import Filters from "@/components/Filters/Filters";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const page = () => {
+const Page = () => {
   const searchParams = useSearchParams();
   const domain = searchParams.get("domain")? searchParams.get("domain").split("-").join(" ") : "";
   const tech = searchParams.get("tech")? searchParams.get("tech").split("-").join(" ") : "";
@@ -126,4 +126,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
