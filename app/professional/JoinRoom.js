@@ -64,7 +64,7 @@ export default function JoinRoom() {
                 </div>
 
                 <button className="w-full text-light-1 bg-blue-500 hover:bg-blue-600 transition-all px-3 py-2 rounded-lg" type="submit">Join</button>
-                <p>Don't have an invite code? Create your <span
+                <p>Don&apos;t have an invite code? Create your <span
                     style={{ textDecoration: "underline", cursor: "pointer" }}
                     onClick={createRoomId}
                 >own room</span></p>

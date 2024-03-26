@@ -158,10 +158,10 @@ const Course = ({ course }) => {
 
       <div className='flex flex-col gap-4 px-4 py-8 shadow-lg bg-white rounded-lg'>
         <h3 className='h3-bold'>
-          What you'll learn
+          What you&apos;ll learn
         </h3>
 
-        <ul className='list-disc'><li className='ml-5'>In this course, you'll have the opportunity to learn from an experienced instructor who brings a wealth of expertise and practical knowledge to the table.</li> <li className='ml-5'>With a proven track record in the field of software development, I am dedicated to providing clear, concise, and engaging instruction that empowers students to succeed.</li> <li className='ml-5'>From building robust applications to implementing efficient coding practices, I'll guide you through the intricacies of software development with ease.</li> <li className='ml-5'>Through comprehensive explanations, hands-on demonstrations, and real-world examples, I strive to make complex software development concepts accessible and understandable for learners of all levels.</li> <li className='ml-5'>By choosing this course, you'll benefit from my passion for teaching and commitment to helping you achieve your goals in mastering software development.</li></ul>
+        <ul className='list-disc'><li className='ml-5'>In this course, you&apos;ll have the opportunity to learn from an experienced instructor who brings a wealth of expertise and practical knowledge to the table.</li> <li className='ml-5'>With a proven track record in the field of software development, I am dedicated to providing clear, concise, and engaging instruction that empowers students to succeed.</li> <li className='ml-5'>From building robust applications to implementing efficient coding practices, I&apos;ll guide you through the intricacies of software development with ease.</li> <li className='ml-5'>Through comprehensive explanations, hands-on demonstrations, and real-world examples, I strive to make complex software development concepts accessible and understandable for learners of all levels.</li> <li className='ml-5'>By choosing this course, you&apos;ll benefit from my passion for teaching and commitment to helping you achieve your goals in mastering software development.</li></ul>
       </div>
 
       {isEnrolled && <div className='flex flex-col gap-4 px-4 py-8 shadow-lg bg-white rounded-lg'>
