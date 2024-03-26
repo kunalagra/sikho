@@ -7,7 +7,7 @@ const Category = () => {
         <div key={index}>
             <div
                 className="transition basis-[45%] md:basis-[10.93%] bg-[#FCF1EB] cursor-pointer rounded mr-3 p-5 hover:opacity-75 group hover:-translate-y-2">
-                <div className="bg-white rounded-full m-0 mx-auto w-20 h-20 scale-90 group-hover:scale-125 rounded-full" >
+                <div className="bg-white rounded-full m-0 mx-auto w-20 h-20 scale-90 group-hover:scale-125" >
                     <img
                      src={cat.thumbnail}
                         alt={cat.name}

@@ -3,7 +3,6 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import axios from 'axios';
-import Link from "next/link";
 import { signIn } from "next-auth/react";
 
 const Register = () => {

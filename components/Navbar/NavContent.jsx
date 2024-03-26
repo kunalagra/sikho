@@ -3,12 +3,11 @@
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import Drawer from "./Drawer";
 import Drawerdata from "./Drawerdata";
 import Signdialog from "./Signdialog";
 import Registerdialog from "./Registerdialog";
-import Contactus from "./Contactus";
 import { signOut } from 'next-auth/react';
 
 const navigation = [

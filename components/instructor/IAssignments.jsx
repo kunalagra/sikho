@@ -1,8 +1,7 @@
 'use client'
 
 import { Accordion, AccordionDetails, AccordionSummary, DialogContent, DialogTitle, Dialog } from '@mui/material';
-import { useParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 function deadlineFormat(dateTime) {

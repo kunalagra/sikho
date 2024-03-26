@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from "react";
-import "../Instructor/becomeInstructor.css";
+import "../instructor/becomeInstructor.css";
 import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 import Edit from "@mui/icons-material/Edit";
 import { useRouter } from "next/navigation";

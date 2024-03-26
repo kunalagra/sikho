@@ -1,5 +1,5 @@
 import React from "react";
-import "../Instructor/becomeInstructor.css";
+import "../instructor/becomeInstructor.css";
 
 function Instructor() {
   return (
@@ -7,7 +7,6 @@ function Instructor() {
       <div className="backgroundColorDiv"></div>
       <img
         src="https://s.udemycdn.com/home/non-student-cta/instructor-1x-v3.jpg"
-        // src="https://s.udemycdn.com/home/non-student-cta/instructor-1x-v3.jpg"
         alt="instructorImg"
         className="instructorImg"
       ></img>
