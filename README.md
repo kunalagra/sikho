@@ -31,6 +31,7 @@
   - Grade Assignments
   - Create Schedules for Meetings
 * Next-Auth for Authentication
+* Calendar Support (requires more work)
 * Stripe Checkout for Pyaments 
 * SocketIO & Jitsi integrated on one page for Live Coding Classes
 
@@ -45,16 +46,19 @@ $ git clone https://github.com/kunalagra/sikho
 # Go into the repository
 $ cd sikho
 
+# Rename .env.example to .env
+$ mv .env.example .env
+
 # Install dependencies
 $ npm install
-
-# Populate .env file with values
 
 # Run the app
 $ npm run dev
 ```
+> [!IMPORTANT]  
+> Populate your .env keys with their respective values. 
 
-> **Note**
+> [!NOTE]
 > If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
 
 ## Credits
@@ -66,6 +70,8 @@ This software uses the following packages:
 - [MongoDB](https://www.mongodb.com/)
 - [Jitsi](https://github.com/jitsi/jitsi)
 - [Adminmart Template](https://adminmart.com/product/si-educational-next-js/)
+
+Built at Hacksparrow
 
 
 ## You may also like...
