@@ -1,4 +1,3 @@
-
 <h1 align="center">
   <br>
   <a href="https://sikhoapp.vercel.app/"><img src="https://raw.githubusercontent.com/kunalagra/sikho/main/public/assets/logo/Logo-1.svg" alt="Sikho" width="200"></a>
@@ -76,4 +75,4 @@ This software uses the following packages:
 
 ## License
 
-MIT
+AGPL-3
