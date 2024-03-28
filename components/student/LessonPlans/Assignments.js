@@ -98,11 +98,14 @@ const Assignments = ({ id }) => {
                     <h3 className='h3-bold'>Assignment {index+1}: <span className='font-normal text-md'>{ass.title}</span></h3>
                     <p className=''>({ass.description})</p>
                   </div>
-                  {ass.submissions?.length===0? <p>Deadline: {deadlineFormat(new Date(ass.end))}</p> : <p className='text-green-500'>SUBMITTED</p>}
+                  <div className='flex justify-between items-center'>
+                    {!ass.submissions || ass.submissions.length===0? <p>Deadline: {deadlineFormat(new Date(ass.end))}</p> : <p className='text-green-500'>SUBMITTED</p>}
+                    {ass.submissions && ass.submissions.length > 0 && ass.submissions[0].grading && <p className='text-orange-500'>GRADED: {ass.submissions[0].grading}/10</p>}
+                  </div>
                 </div>
                 </AccordionSummary>
               <AccordionDetails className='bg-slate-100'>
-                {ass.submissions?.length > 0? (
+                {ass.submissions && ass.submissions?.length > 0? (
                   <div className='flex flex-col gap-2'>
                     <p className='text-sm'>{ass.submissions[0].solution}</p>
                     <p>Submitted at: {formatDateTime(new Date(ass.submissions[0].submitTime))}</p>

@@ -35,7 +35,7 @@ const Page = () => {
         })
         .then((res) => navigate.push('/'))
         .catch((err) => {
-            console.log(err);
+            // console.log(err);
         })
     }
 

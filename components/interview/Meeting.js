@@ -67,7 +67,7 @@ const Meeting = ({roomId, username}) => {
   };
 
   const handleApiReady = (apiObj) => {
-    console.log(searchparams);
+    // console.log(searchparams);
     apiRef.current = apiObj;
     apiRef.current.on("knockingParticipant", handleKnockingParticipant);
     apiRef.current.on("audioMuteStatusChanged", (payload) =>

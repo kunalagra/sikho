@@ -57,15 +57,15 @@ export async function POST(req) {
   if (userID && userdata.type=="Instructor"){
       
       if (data._id){
-          console.log(data);
+          // console.log(data);
           let query = {_id: data._id}
           let options = {new: true};
           let update = {
             submissions: data.submissions
           }
-          console.log(update)
+          // console.log(update)
           const res = await Assignment.findOneAndUpdate(query, update, options);
-          console.log(res)
+          // console.log(res)
           return new Response('Assignment Updated',{status: 201})
 
       }

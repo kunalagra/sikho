@@ -92,7 +92,12 @@ const IAssignments = ({ assignments, lessonPlanID, setAssignments }) => {
         end: end? new Date(end).toJSON() : new Date().toJSON()
       })
     }).then(() => {
-      setIsOpen(false);
+      setIsCreateFormOpen(false);
+      setAssignments([...assignments, {lid: lessonPlanID,
+        title: title,
+        description: description,
+        end: end? new Date(end).toJSON() : new Date().toJSON()}
+      ]);
     }).finally(() => {
         setTitle('');
         setDescription('');
@@ -106,11 +111,11 @@ const IAssignments = ({ assignments, lessonPlanID, setAssignments }) => {
       <Dialog open={isCreateFormOpen} onClose={() => setIsCreateFormOpen(false)}>
         <div className='w-[500px]'>
           <DialogTitle>Assignment #{assignments.length+1}</DialogTitle>
-          <DialogContent className='flex flex-col gap-3'>
+          <DialogContent className='flex flex-col gap-3 w-full'>
             <input
                 type="text"
                 required
-                className="relative block w-[50%] appearance-none rounded-md px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
+                className="relative block appearance-none rounded-md px-3 py-2 border border-gray-300 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
                 placeholder="Title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -118,7 +123,7 @@ const IAssignments = ({ assignments, lessonPlanID, setAssignments }) => {
             <textarea
                 rows={5}
                 required
-                className="resize-none relative block w-[50%] appearance-none rounded-md px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
+                className="resize-none relative block appearance-none rounded-md px-3 py-2 border border-gray-300 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
                 placeholder="Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -126,7 +131,7 @@ const IAssignments = ({ assignments, lessonPlanID, setAssignments }) => {
             <input
                 type="date"
                 required
-                className="relative block w-[50%] appearance-none rounded-md px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
+                className="relative block appearance-none rounded-md px-3 py-2 border border-gray-300 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
                 value={end}
                 onChange={(e) => setEnd(e.target.value)}
             />
@@ -134,7 +139,7 @@ const IAssignments = ({ assignments, lessonPlanID, setAssignments }) => {
               onClick={handleSubmit}
               disabled={isSubmitting}
             >
-              {isSubmitting? 'Submitting...' :  'Submit Answer'}
+              {isSubmitting? 'Creating...' :  'Create Assignment'}
             </button>
           </DialogContent>
         </div>
@@ -179,13 +184,19 @@ const IAssignments = ({ assignments, lessonPlanID, setAssignments }) => {
                     <p className=''>({ass.description})</p>
                   </div>
                   <div className='flex justify-between items-center'>
-                    {ass.submissions?.length===0? <p>Deadline: {deadlineFormat(new Date(ass.end))}</p> : <p className='text-green-500'>SUBMITTED</p>}
-                    {ass.submissions?.length > 0 && ass.submissions[0].grading && <p className='text-orange-500'>GRADED: {ass.submissions[0].grading}/10</p>}
+                    {!ass.submissions || ass.submissions?.length===0? (
+                      new Date(ass.end) >= new Date()? 
+                        <p>Deadline: {deadlineFormat(new Date(ass.end))}</p> : 
+                        <p className='text-red-500'>Deadline Passed</p>
+                    ) : (
+                      <p className='text-green-500'>SUBMITTED</p>
+                    )}
+                    {ass.submissions && ass.submissions.length > 0 && ass.submissions[0].grading && <p className='text-orange-500'>GRADED: {ass.submissions[0].grading}/10</p>}
                   </div>
                 </div>
                 </AccordionSummary>
               <AccordionDetails className='bg-slate-100'>
-                {ass.submissions?.length > 0? (
+                {ass.submissions && ass.submissions?.length > 0? (
                   <div className='flex flex-col gap-2'>
                     <p className='text-sm'>{ass.submissions[0].solution}</p>
                     <p>Submitted at: {formatDateTime(new Date(ass.submissions[0].submitTime))}</p>
@@ -210,7 +221,7 @@ const IAssignments = ({ assignments, lessonPlanID, setAssignments }) => {
 
           {assignments.length===0 && <p className='text-center'>No assignments found!</p>}
 
-          <button className='mt-3 py-2 w-full rounded-lg text-white bg-purple-1 active:bg-purple-2'>
+          <button className='mt-3 py-2 w-full rounded-lg text-white bg-purple-1 active:bg-purple-2' onClick={() => setIsCreateFormOpen(true)}>
             Create Assignment
           </button>
         </div>

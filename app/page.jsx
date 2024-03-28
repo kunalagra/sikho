@@ -19,7 +19,7 @@ import { getServerSession } from 'next-auth';
 export default async function Page() {
 
   const session = await getServerSession(authOptions);
-  const isUser = session?.user?.type
+  const isUser = session?.user?.type;
 
   // console.log(session)
 

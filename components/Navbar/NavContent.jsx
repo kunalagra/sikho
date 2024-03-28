@@ -9,6 +9,7 @@ import Drawerdata from "./Drawerdata";
 import Signdialog from "./Signdialog";
 import Registerdialog from "./Registerdialog";
 import { signOut } from 'next-auth/react';
+import { usePathname } from 'next/navigation'
 
 const navigation = [
     { name: 'Home', href: '/', current: true },
@@ -24,6 +25,7 @@ const NavContent = ({ session }) => {
 
     const userID = session && session.user? session.user._id : null;
     const [isOpen, setIsOpen] = useState(false);
+    const pathname = usePathname();
 
     return (
         <Disclosure as="nav" className="bg-lightpink-1 NavContent">
@@ -82,9 +84,9 @@ const NavContent = ({ session }) => {
                             </Link>
                         )}
 
-                        {userID && (
+                        {userID && pathname==='/' && (
                             <button
-                                onClick={() => {signOut(), localStorage.clear()}}
+                                onClick={() => {signOut(); localStorage.clear();}}
                                 className="text-15px font-medium text-purple hover:text-purple px-4 py-2 rounded-md border border-purple"
                             >
                                 Sign Out

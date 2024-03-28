@@ -37,7 +37,7 @@ const Page = () => {
     if (filterkey==='price') {
       if (filtervalue==='low-to-high') {
         finalData = finalData.toSorted((a, b) => {
-          console.log(a.price, b.price);
+          // console.log(a.price, b.price);
           return a.price - b.price
         })
       } else if (filtervalue==='high-to-low') {

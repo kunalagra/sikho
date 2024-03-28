@@ -57,7 +57,7 @@ export default function CheckoutForm({ clientSecret }) {
   .then(res => {
     localStorage.removeItem('id')
     localStorage.removeItem('plan')
-    console.log(res)
+    // console.log(res)
   })
   }
 
@@ -88,7 +88,7 @@ export default function CheckoutForm({ clientSecret }) {
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
     } else {
-      console.log(error.message)
+      // console.log(error.message)
       setMessage("payment successful! Redirecting to success page...");
       setTimeout(() => {
         handleUpdateEnroled();

@@ -14,7 +14,6 @@ const LessonPlans = () => {
     const res = await fetch("/api/lessonPlans");
     const data = await res.json();
     setPlans(data);
-    console.log(data);
   };
 
   useEffect(() => {

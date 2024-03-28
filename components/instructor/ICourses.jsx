@@ -146,7 +146,6 @@ const ICourses = () => {
       const response = await fetch('/api/plans');
       const data = await response.json();
       setCourses(data);
-      console.log(data);
     };
     fetchData();
   }, []);
