@@ -21,7 +21,7 @@
 
 * 2 types of User - Student & Instructor
 * User Features
-  - Enroll in pplans
+  - Enroll in plans
   - Submit Assignments
   - User profile view and updates
   - Join lectures
