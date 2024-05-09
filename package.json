@@ -26,7 +26,7 @@
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "@uiw/codemirror-theme-eclipse": "^4.22.0",
-    "@uiw/codemirror-theme-vscode": "^4.21.24",
+    "@uiw/codemirror-theme-vscode": "^4.22.0",
     "@uiw/codemirror-themes": "^4.21.24",
     "@uiw/react-codemirror": "^4.22.0",
     "autoprefixer": "10.4.14",
