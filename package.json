@@ -41,7 +41,7 @@
     "next-auth": "^4.24.7",
     "postcss": "^8.4.38",
     "react": "18.2.0",
-    "react-big-calendar": "^1.11.2",
+    "react-big-calendar": "^1.12.1",
     "react-datetime-picker": "^6.0.1",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.1",
