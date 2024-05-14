@@ -29,7 +29,7 @@
     "@uiw/codemirror-theme-vscode": "^4.22.0",
     "@uiw/codemirror-themes": "^4.21.24",
     "@uiw/react-codemirror": "^4.22.0",
-    "autoprefixer": "10.4.14",
+    "autoprefixer": "10.4.19",
     "aws4": "^1.12.0",
     "axios": "^1.6.8",
     "babel-preset-es2015": "^6.24.1",
