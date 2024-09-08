@@ -15,7 +15,7 @@
     "@codemirror/lang-python": "^6.1.6",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
-    "@headlessui/react": "^2.1.2",
+    "@headlessui/react": "^2.1.5",
     "@heroicons/react": "^2.1.4",
     "@jitsi/react-sdk": "^1.4.0",
     "@mui/icons-material": "^5.16.7",
