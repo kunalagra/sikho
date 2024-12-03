@@ -34,7 +34,7 @@
     "bcrypt": "^5.1.1",
     "eslint": "8.40.0",
     "eslint-config-next": "14.2.14",
-    "mongoose": "^8.5.3",
+    "mongoose": "^8.8.3",
     "next": "^14.2.13",
     "next-auth": "^4.24.10",
     "postcss": "^8.4.47",
