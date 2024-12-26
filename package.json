@@ -18,7 +18,7 @@
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "@jitsi/react-sdk": "^1.4.0",
-    "@mui/icons-material": "^5.16.7",
+    "@mui/icons-material": "^5.16.13",
     "@mui/material": "^5.16.13",
     "@stripe/react-stripe-js": "^3.1.1",
     "@stripe/stripe-js": "^5.4.0",
