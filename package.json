@@ -19,7 +19,7 @@
     "@heroicons/react": "^2.2.0",
     "@jitsi/react-sdk": "^1.4.4",
     "@mui/icons-material": "^5.16.14",
-    "@mui/material": "^5.16.14",
+    "@mui/material": "^5.17.0",
     "@stripe/react-stripe-js": "^3.4.0",
     "@stripe/stripe-js": "^6.0.0",
     "@types/node": "22.13.10",
