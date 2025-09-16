@@ -22,7 +22,7 @@
     "@mui/material": "^5.17.1",
     "@stripe/react-stripe-js": "^4.0.2",
     "@stripe/stripe-js": "^7.9.0",
-    "@types/node": "24.3.1",
+    "@types/node": "24.5.0",
     "@types/react": "18.3.9",
     "@types/react-dom": "18.3.0",
     "@uiw/codemirror-theme-eclipse": "^4.25.1",
