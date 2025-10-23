@@ -50,13 +50,16 @@ $ cd sikho
 $ mv .env.example .env
 
 # Install dependencies
-$ npm install
+$ npm install --legacy-peer-deps
 
 # Run the app
 $ npm run dev
 ```
 > [!IMPORTANT]  
 > Populate your .env keys with their respective values. 
+
+> [!NOTE]
+> The `--legacy-peer-deps` flag is required for Next.js 16 as next-auth@4.24.11 doesn't officially support Next.js 16 yet. It works fine with the flag. 
 
 > [!NOTE]
 > If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
