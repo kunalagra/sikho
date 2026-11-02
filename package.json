@@ -30,7 +30,7 @@
     "@uiw/codemirror-themes": "^4.25.12",
     "@uiw/react-codemirror": "^4.25.12",
     "autoprefixer": "10.6.2",
-    "axios": "^1.20.0",
+    "axios": "^1.21.0",
     "bcrypt": "^6.0.0",
     "eslint": "10.13.0",
     "eslint-config-next": "16.4.3",
